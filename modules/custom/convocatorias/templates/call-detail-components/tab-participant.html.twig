@@ -1,0 +1,86 @@
+{#
+/**
+ * Tab tipo de participante
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-participant" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-participant-tab call-detail-menu-unallowed-tab"
+>
+		<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Tipo de participante</p>
+
+		{% set break = false %}
+		{% for outter in response.tipo_de_participante if not break%}
+
+			{% if outter.participantes == null %}
+				<div class="table-responsive wider">
+					<table class="table table-bordered mt-5">
+						<colgroup>
+							<col class="w-25">
+							<col class="w-75">
+						</colgroup>
+					
+						<thead>
+							<tr>
+								<th scope="col">Participante</th>
+								<th scope="col">Perfil específico del participante</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in response.tipo_de_participante %}
+								<tr>
+									<td class="text-dark-900 f-14">{{ item.participante }}</td>
+									<td class="text-dark-900 f-14">{{ item.descripcion|raw }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+				{% set break = true %}
+			
+			{% else %}
+				<p class="text-dark-900"><span class="font-weight-bold">Categoria: </span>  {{ outter.categoria|raw }}</p>
+
+				<div class="table-responsive wider mb-4">
+					<table class="table table-bordered">
+						<colgroup>
+							<col class="w-25">
+							<col class="w-75">
+						</colgroup>
+					
+						<thead>
+							<tr>
+								<th scope="col">Participante</th>
+								<th scope="col">Perfil específico del participante</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in outter.participantes %}
+								<tr>
+									<td class="text-dark-900 f-14">{{ item.participante }}</td>
+									<td class="text-dark-900 f-14">{{ item.descripcion|raw }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			{% endif %}
+			
+	{% endfor %}
+
+	<div id="scroll-to-this-participants"></div>
+
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center mt-8">Quiénes no pueden participar</p>
+	<div class="text-dark-900 mt-5 text-responsive-18-16--sm">
+		<span class="mb-5">
+			{{ response.quienes_no_pueden_participar|raw }}
+		</span>
+	</div>
+</div>

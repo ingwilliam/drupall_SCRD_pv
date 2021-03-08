@@ -1,0 +1,110 @@
+.custom__dropdown {
+  top: unset;
+  left: unset;
+
+  a.nav-link {
+    color: $color-primary-800;
+    font-size: 16px;
+    font-weight: normal;
+  }
+}
+
+.dropdown-menu.custom__dropdown.show {
+  padding: 48px 32px;
+  min-width: 352px;
+  max-width: 450px;
+  top: 62px;
+  border-radius: 0px;
+  box-shadow: 0px 4px 8px rgba(96, 97, 112, 0.16);
+  border: none;
+  @include media-breakpoint-down(sm) {
+    min-width: 200px;
+    padding: 32px 34px;
+  }
+  a.nav-link {
+    color: $color-dark-800 !important;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400 !important;
+    display: flex;
+    align-items: flex-start;
+    &::before {
+      content: "";
+      display: inline-table;
+      width: 27px;
+      height: 27px;
+      margin-right: 15px;
+      background: url("../images/chevron-der.png") center/ contain no-repeat;
+    }
+    &:hover {
+      color: $color-primary-600 !important;
+      text-decoration: underline !important;
+    }
+  }
+
+  span.nav-link {
+    color: $color-primary-400;
+    font-size: 16px;
+    line-height: 32px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 1px solid $color-primary-400;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  a.nav-link[href*=".pdf"] {
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 17px;
+      height: 26px;
+      padding-right: 20px;
+      padding-left: 5px;
+      background: url("../images/pdf-black-gray.png") center/ contain no-repeat;
+      margin-bottom: 10px;
+    }
+  }
+
+  // .menu-convocatorias-container {
+  //   padding: 34px 27px;
+  //   display: flex;
+  //   flex-direction: column;
+
+  //   @include media-breakpoint-down(sm) {
+  //     padding: 34px 16px;
+  //   }
+  //   a.nav-link {
+  //     display: flex;
+  //     align-items: flex-start;
+  //   }
+  // }
+}
+
+#navbarMainMenu {
+  .calls-menu {
+    max-width: 861px;
+    width: 100%;
+    @include media-breakpoint-down(sm) {
+      height: 400px;
+      overflow-y: scroll;
+      ::-webkit-scrollbar {
+        width: 0px !important;
+        background: transparent !important;
+      }
+    }
+  }
+  .dropdown-toggle::after {
+    @include media-breakpoint-down(sm) {
+      margin-top: 9px;
+    }
+  }
+
+  .primary-button {
+    width: 80%;
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+    }
+  }
+}

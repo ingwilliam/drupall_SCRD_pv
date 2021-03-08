@@ -1,0 +1,32 @@
+#block-views-block-steps-to-be-jury {
+  .steps-juries {
+    background: url("../images/bg-jurados-seccion-pasos.jpg");
+    background-size: cover;
+    background-position: center;
+
+    &__puzzle-absolute {
+      top: -37px;
+      right: 46px;
+    }
+
+    &__content {
+      max-width: 772px;
+      margin: auto;
+    }
+
+    &__number {
+      top: 14px;
+      left: 16.5px;
+    }
+
+    &__step {
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 30px;
+      color: $color-dark-800;
+    }
+    a {
+      text-decoration: underline !important;
+    }
+  }
+}

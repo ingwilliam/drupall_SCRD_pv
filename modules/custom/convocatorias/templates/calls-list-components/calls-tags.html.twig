@@ -1,0 +1,85 @@
+{% for key, value in queryParams %}
+	{% if value != null %}
+		{% if key == "anio" %}
+			<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+				<span class="close-icon f-14 text-dark-700" data-param={{ key }}>{{ value }}</span>
+			</div>
+		{% endif %}
+
+		{% if key == "entidad" %}
+			{% for v in value %}
+				{% for a in entities %}
+					{% if a.id == v %}
+						<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+							<span class="close-icon f-14 text-dark-700" data-param={{ key }} data-id={{ a.id }}>{{ a.short_name }}</span>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+
+		{% if key == "estado" %}
+			{% for v in value %}
+				{% for a in state %}
+					{% if a.id == v %}
+						<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+							<span class="close-icon f-14 text-dark-700" data-param={{ key }} data-id={{ a.id }}>{{ a.name }}</span>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+
+		{% if key == "perfil" %}
+			{% for v in value %}
+				{% for a in profile %}
+					{% if a.id == v %}
+						<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+							<span class="close-icon f-14 text-dark-700" data-param={{ key }} data-id={{ a.id }}>{{ a.name }}</span>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+
+		{% if key == "area" %}
+			{% for a in area %}
+				{% if a.id == value %}
+					<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+						<span class="close-icon f-14 text-dark-700" data-param={{ key }}>{{ a.name }}</span>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if key == "linea_estrategica" %}
+			{% for a in line %}
+				{% if a.id == value %}
+					<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+						<span class="close-icon f-14 text-dark-700" data-param={{ key }}>{{ a.name }}</span>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if key == "enfoque" %}
+			{% for a in approach %}
+				{% if a.id == value %}
+					<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+						<span class="close-icon f-14 text-dark-700" data-param={{ key }}>{{ a.name }}</span>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if key == "modalidad" %}
+			{% for a in modality %}
+				{% if a.id == value %}
+					<div class="call-filter-tag radius-5 bg-dark-200 mb-1">
+						<span class="close-icon f-14 text-dark-700" data-param={{ key }}>{{ a.name }}</span>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endif %}
+{% endfor %}

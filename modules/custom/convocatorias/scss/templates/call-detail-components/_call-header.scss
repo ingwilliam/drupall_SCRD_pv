@@ -1,0 +1,67 @@
+#call-header {
+  .content--left {
+    max-width: 700px;
+
+    .breadcrumb-header {
+      color: white !important;
+
+      a {
+        color: white !important;
+        font-weight: 700;
+      }
+    }
+
+    .primary-button {
+      max-width: 494px;
+      display: block;
+
+      @media (max-width: $screen-md) {
+        font-size: 18px !important;
+        padding: 10px 0px;
+      }
+    }
+
+    .conditions {
+      @media (max-width: $screen-md) {
+        display: block;
+        font-size: 14px !important;
+
+        u {
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .content--right {
+    max-width: 445px;
+
+    .scrollable {
+      max-height: 367px;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .item {
+        .title {
+          text-transform: uppercase;
+          max-width: 300px;
+        }
+
+        .description {
+          * {
+            display: inline;
+          }
+        }
+
+        .text {
+          text-transform: uppercase;
+        }
+
+        .border-item {
+          border-bottom: 1px solid $color-dark-600;
+        }
+      }
+    }
+  }
+}

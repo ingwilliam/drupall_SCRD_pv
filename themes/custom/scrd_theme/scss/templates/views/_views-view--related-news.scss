@@ -1,0 +1,8 @@
+#block-views-block-related-news {
+  .related-news-title {
+    @include media-breakpoint-down(sm) {
+      font-size: 36px !important;
+      line-height: 55px;
+    }
+  }
+}

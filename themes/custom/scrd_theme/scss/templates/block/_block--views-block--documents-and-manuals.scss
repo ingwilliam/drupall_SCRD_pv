@@ -1,0 +1,67 @@
+#block-views-block-documents-and-manuals {
+  #views-bootstrap-tab-views-bootstrap-documents-and-manuals-block-1 {
+    ul.nav-tabs {
+      padding-top: 25px;
+      border: none;
+
+      li {
+        margin-bottom: 25px;
+
+        &:hover {
+          text-decoration: underline !important;
+          font-weight: 600;
+        }
+
+        a {
+          color: $color-dark-800;
+          font-size: 14px;
+        }
+      }
+
+      li a.active {
+        font-weight: 700;
+      }
+
+      @media (max-width: $screen-lg) {
+        li {
+          width: 300px;
+          padding: 0 16px;
+        }
+
+        &.side-menu {
+          width: 0;
+          height: 100%;
+          position: fixed;
+          z-index: 20;
+          top: 0;
+          left: 0;
+          background-color: white;
+          overflow-x: hidden;
+          border-top: 1px solid #7c5cbc;
+          border-right: 1px solid #7c5cbc;
+          border-bottom: 1px solid #7c5cbc;
+          transition: 0.5s;
+          padding: 0 !important;
+        }
+      }
+    }
+
+    .tab-content {
+      .name {
+        margin-bottom: 23px;
+        font-size: 48px;
+        line-height: 60px;
+        @include media-breakpoint-down(md) {
+          font-size: 36px;
+          line-height: 45px;
+        }
+        font-weight: bold;
+        color: $color-primary-600;
+      }
+
+      .description {
+        color: $color-dark-900;
+      }
+    }
+  }
+}

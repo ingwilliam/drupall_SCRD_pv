@@ -1,0 +1,14 @@
+.table-responsive.wider {
+  margin-left: -100px;
+  width: auto;
+
+  @media (max-width: $screen-md) {
+    margin-left: 0;
+  }
+}
+
+#call-detail {
+  ul {
+    list-style-type: disc !important;
+  }
+}

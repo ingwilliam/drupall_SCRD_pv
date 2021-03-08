@@ -1,0 +1,37 @@
+#block-stimulus-block {
+  @include media-breakpoint-down(xs) {
+    .stimulus-title {
+      font-size: 36px;
+      line-height: 44px;
+    }
+    img {
+      height: 165px;
+      object-fit: cover;
+    }
+  }
+
+  @include media-breakpoint-between(xs, sm) {
+    .stimulus-title {
+      font-size: 36px;
+      line-height: 44px;
+    }
+    img {
+      height: 250px;
+      object-fit: cover;
+    }
+  }
+
+  @include media-breakpoint-between(sm, md) {
+    img {
+      height: 350px;
+      object-fit: cover;
+    }
+  }
+
+  @include media-breakpoint-between(md, lg) {
+    img {
+      height: 450px;
+      object-fit: cover;
+    }
+  }
+}

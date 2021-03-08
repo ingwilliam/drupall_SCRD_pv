@@ -1,0 +1,19 @@
+#block-scrd-theme-main-menu {
+  // li.nav-item:nth-of-type(1) {
+  //   ul.dropdown-menu.custom__dropdown.show {
+  //     display: flex;
+  //     padding: 0px;
+  //   }
+  // }
+  a.nav-link {
+    color: $color-primary-100;
+    font-weight: 600;
+
+    &.active.dropdown-toggle {
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 4px solid;
+      padding: 0.2rem;
+    }
+  }
+}

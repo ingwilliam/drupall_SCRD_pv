@@ -1,0 +1,118 @@
+{% set total_pages = (data.total_registros / number_items_page)|round(0, 'ceil')%}
+{% set current_page = queryParams.pagina ? queryParams.pagina : 1 %}
+
+{# Ruta de paginacion #}
+{% set page_route = "" %}
+{% for key, value in queryParams %}
+	{% if value != null and key != "pagina" %}
+		{% if key == "entidad" or key == "estado" or key == "perfil" %}
+			{% for item in value %}
+				{% set page_route = page_route ~ key ~ "[]=" ~ item ~ "&" %}
+			{% endfor %}
+		{% else %}
+			{% set page_route = page_route ~ key ~ "=" ~ value ~ "&"  %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+{# Paginador #}
+{% if total_pages > 1 %}
+	<div class="row mb-6">
+		<div class="offset-xl-3 col-12 col-xl-9">
+			<div class="row justify-content-center">
+				<ul class="pager__items js-pager__items btn-group" role="group">
+					{# Boton pagina anterior #}
+					{% if current_page > 1 %}
+						<li class="pager__item pager__item--previous btn btn-light">
+							<a href="?{{ page_route }}pagina={{ current_page - 1 }}" title="Ir a la página anterior" rel="prev">
+								<span class="visually-hidden">Página anterior</span>
+								<span aria-hidden="true">Anterior</span>
+							</a>
+						</li>
+					{% endif %}
+
+					{# Puntos suspensiivos #}
+					{% if current_page - 2 > 0 and total_pages > 3%}
+						<li><span class="px-1">...</span></li>
+					{% endif %}
+
+					{# Elementos anteriores al actual  #}
+					{% if current_page == 1 %}
+					{% elseif current_page == total_pages %}
+						{% if current_page - 2 > 0 %}
+							<li class="btn btn-secondary pager__item btn btn-light">
+								<a href="?{{ page_route }}pagina={{ current_page - 2 }}" title="Ir a la página {{ current_page - 2 }}">
+									<span class="visually-hidden"> Página </span>{{ current_page - 2 }}
+								</a>
+							</li>
+						{% endif %}
+						{% if current_page - 1 > 0 %}
+							<li class="btn btn-secondary pager__item btn btn-light">
+								<a href="?{{ page_route }}pagina={{ current_page - 1 }}" title="Ir a la página {{ current_page - 1 }}">
+									<span class="visually-hidden"> Página </span>{{ current_page - 1 }}
+								</a>
+							</li>
+						{% endif %}
+					{% else %}
+						{% if current_page - 1 > 0 %}
+							<li class="btn btn-secondary pager__item btn btn-light">
+								<a href="?{{ page_route }}pagina={{ current_page - 1 }}" title="Ir a la página {{ current_page - 1 }}">
+									<span class="visually-hidden"> Página </span>{{ current_page - 1 }}
+								</a>
+							</li>
+						{% endif %}
+					{% endif %}
+
+					{# Elemento actual #}
+					<li class="btn btn-secondary pager__item active btn btn-light">
+						<a href="?{{ page_route }}pagina={{ current_page }}" title="Página actual">
+							<span class="visually-hidden"> Página actual </span>{{ current_page }}
+						</a>
+					</li>
+
+					{# Elementos siguientes al actual  #}
+					{% if current_page == total_pages %}
+					{% elseif current_page == 1 %}
+						{% if current_page + 1 <= total_pages %}
+							<li class="btn btn-secondary pager__item btn btn-light">
+								<a href="?{{ page_route }}pagina={{ current_page + 1 }}" title="Ir a la página {{ current_page + 1 }}">
+									<span class="visually-hidden"> Página </span>{{ current_page + 1 }}
+								</a>
+							</li>
+						{% endif %}
+						{% if current_page + 2 <= total_pages %}
+							<li class="btn btn-secondary pager__item btn btn-light">
+								<a href="?{{ page_route }}pagina={{ current_page + 2 }}" title="Ir a la página {{ current_page + 2 }}">
+									<span class="visually-hidden"> Página </span>{{ current_page + 2 }}
+								</a>
+							</li>
+						{% endif %}
+					{% else %}
+						{% if current_page + 1 <= total_pages %}
+							<li class="btn btn-secondary pager__item btn btn-light">
+								<a href="?{{ page_route }}pagina={{ current_page + 1 }}" title="Ir a la página {{ current_page + 1 }}">
+									<span class="visually-hidden"> Página </span>{{ current_page + 1 }}
+								</a>
+							</li>
+						{% endif %}
+					{% endif %}
+					
+					{# Puntos suspensivos #}
+					{% if current_page + 2 <= total_pages and total_pages > 3 %}
+						<li><span class="px-1">...</span></li>
+					{% endif %}
+
+					{# Boton pagina siguente #}
+					{% if current_page < total_pages %}
+						<li class="pager__item pager__item--next btn btn-light">
+							<a href="?{{ page_route }}pagina={{ current_page + 1 }}" title="Ir a la página siguiente" rel="next">
+								<span class="visually-hidden">Siguiente página</span>
+								<span aria-hidden="true">Siguiente</span>
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endif %}

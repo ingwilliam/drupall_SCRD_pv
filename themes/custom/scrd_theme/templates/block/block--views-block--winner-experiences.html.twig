@@ -1,0 +1,80 @@
+{#
+/**
+ * @file
+ * Sobreescritura del BLOQUE "Experiencias ganadoras".
+ * Modifica el layout del carrusel contenedor para "Experiencias ganadoras",
+ * para modificar el layout de los ITEMS (nodos) del carrusel dirijase a:
+ * "../content/node--view--winner-experiences-view.html.twig"
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+		'bg-primary-600',
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+
+<div {{ attributes.addClass(classes) }}>
+	{{ title_suffix }}
+	<div class="container-fluid p-0 position-relative" style="min-height: 600px">
+		<div class="row no-gutters">
+			<div class="col-12 position-relative">
+				<div class="row no-gutters position-absolute w-100">
+					<div class="col-12 col-lg-7"></div>
+					<div class="col-12 col-lg-5">
+						<div class="experiences-content px-3">
+							<div class="d-flex d-sm-none d-lg-flex arrows px-lg-4">
+								<a class="carousel-control-prev carrousel-arrow position-relative opacity-1" href="#experiencesCarousel" role="button" data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="carousel-control-next carrousel-arrow position-relative opacity-1" href="#experiencesCarousel" role="button" data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>	
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="experiencesCarousel" class="carousel slide" data-ride="carousel" data-interval="20000">
+					{% block content %}
+						{{ content }}
+					{% endblock %}
+
+					<div class="row no-gutters">
+						<div class="carousel-dots offset-0 offset-lg-7 col-12 col-lg-5">
+							<ol id="indicatorsExperiencesCarousel" class="carousel-dots carousel-indicators mb-5 px-5 ml-lg-0">
+								{# elementos añadidos via javascript #}
+							</ol>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

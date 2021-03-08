@@ -1,0 +1,43 @@
+#block-buscarconvocatoria {
+  .content {
+    background-color: #33216d;
+    position: relative;
+    overflow: hidden;
+
+    &-image {
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    &-breadcrumb {
+      a {
+        color: white;
+      }
+
+      a:first-child {
+        font-weight: 700;
+      }
+
+      span:last-child {
+        font-weight: normal;
+      }
+    }
+
+    @include media-breakpoint-down(xs) {
+      &-title {
+        font-size: 30px !important;
+        line-height: 44px;
+      }
+    }
+
+    &-text {
+      max-width: 700px;
+      line-height: 150%;
+    }
+
+    &-button {
+      height: 58px;
+    }
+  }
+}

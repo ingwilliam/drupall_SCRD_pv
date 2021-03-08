@@ -1,0 +1,43 @@
+.node-experience-teaser {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid #aebecd;
+
+  .teaser-image {
+    height: 186px;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 186px;
+    }
+
+    .tag {
+      position: absolute;
+      display: block;
+      bottom: 13px;
+      padding: 0 12px;
+      background-color: #e1faeb;
+      border-radius: 0 5px 5px 0;
+      color: #197341;
+    }
+  }
+
+  .teaser-content__link {
+    height: 125px;
+    overflow: hidden;
+  }
+
+  .teaser-tags {
+    height: 119px;
+  }
+}
+
+#entitySelect {
+  div span {
+    cursor: pointer;
+  }
+}

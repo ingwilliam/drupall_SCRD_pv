@@ -1,0 +1,1 @@
+{"version":3,"sources":["templates/block/block--scrd-theme-account-menu.scss"],"names":[],"mappings":"AAAA,gBAEE,aACD","file":"block--scrd-theme-account-menu.css","sourcesContent":[".account-menu {\n\ta {\n\t\tcolor: #F7F6FE\n\t}\n}"]}

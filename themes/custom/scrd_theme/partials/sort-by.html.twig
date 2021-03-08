@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col">
+    <div class="d-flex flex-wrap align-items-center">
+      <span class="text-dark-700 f-14 mr-3 pb-2 pb-sm-0">Ordenar por: </span>
+      
+      {# ?year=2021 #}
+      <div>
+        <select class="custom-select select--gray mr-sm-2 f-14 text-dark-700 w-auto" id="yearSelect">
+          <option value="0">Año</option>
+          {% for i in range(0, 5) %}
+            <option value={{('now' | date('Y')) - i}} {{ queryParams.year == (('now' | date('Y')) - i) ? attributes.setAttribute('selected', '') : '' }}>
+              {{('now' | date('Y')) - i}}
+            </option>
+          {% endfor %}
+        </select>
+        
+        {# ?month=01 #}
+        <select class="custom-select select--gray mr-sm-2 f-14 text-dark-700 w-auto" id="monthSelect">
+          <option value="0">Mes</option>
+          <option value="01" {{ queryParams.month == "01" ? attributes.setAttribute('selected', '') : '' }}>Enero</option>
+          <option value="02" {{ queryParams.month == "02" ? attributes.setAttribute('selected', '') : '' }}>Febrero</option>
+          <option value="03" {{ queryParams.month == "03" ? attributes.setAttribute('selected', '') : '' }}>Marzo</option>
+          <option value="04" {{ queryParams.month == "04" ? attributes.setAttribute('selected', '') : '' }}>Abril</option>
+          <option value="05" {{ queryParams.month == "05" ? attributes.setAttribute('selected', '') : '' }}>Mayo</option>
+          <option value="06" {{ queryParams.month == "06" ? attributes.setAttribute('selected', '') : '' }}>Junio</option>
+          <option value="07" {{ queryParams.month == "07" ? attributes.setAttribute('selected', '') : '' }}>Julio</option>
+          <option value="08" {{ queryParams.month == "08" ? attributes.setAttribute('selected', '') : '' }}>Agosto</option>
+          <option value="09" {{ queryParams.month == "09" ? attributes.setAttribute('selected', '') : '' }}>Septiembre</option>
+          <option value="10" {{ queryParams.month == "10" ? attributes.setAttribute('selected', '') : '' }}>Octubre</option>
+          <option value="11" {{ queryParams.month == "11" ? attributes.setAttribute('selected', '') : '' }}>Noviembre</option>
+          <option value="12" {{ queryParams.month == "12" ? attributes.setAttribute('selected', '') : '' }}>Diciembre</option>
+        </select>
+        
+        {# ?sort_by=field_begin_date_value&sort_order=ASC #}
+        {# DESC -> mas recientes primero #}
+        {# ASC -> mas antiguas primero #}
+        <select class="custom-select select--gray mr-sm-2 f-14 text-dark-700 w-auto" id="dateSelect">
+          <option value="0">Fecha</option>
+          <option value="DESC" {{ queryParams.sort_order == "DESC" ? attributes.setAttribute('selected', '') : '' }}>Más recientes</option>
+          <option value="ASC" {{ queryParams.sort_order == "ASC" ? attributes.setAttribute('selected', '') : '' }}>Más antiguas</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead">
+            <tr>
+                <th scope="col">Evento</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dates in item.cronograma %}
+                <tr>
+                    <td>{{ dates.tipo_evento }}</td>
+                    <td class="font-weight-semibold">{{ dates.fecha_inicio|date('d/m/y') }}</td>
+                    <td>{{ dates.descripcion|raw }}</td>
+                </tr>    
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

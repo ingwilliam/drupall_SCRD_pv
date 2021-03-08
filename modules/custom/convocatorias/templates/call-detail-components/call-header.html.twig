@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Header de la pagina de detalle de convocatoria
+ *
+ */
+ #}
+{% macro entityTag(entity) %}
+	{% set class = entity == "IDARTES" ? "call-tag--idartes" : 
+								 entity == "IDPC" ? "call-tag--idpc" : 
+								 entity == "OFB" ? "call-tag--ofb" : 
+								 entity == "SCRD" ? "call-tag--scrd" : 
+								 entity == "FUGA" ? "call-tag--fuga" : 
+								 "call-tag--default" %}
+
+	<div class={{ class }}>
+		<span>{{ entity }}</span>
+	</div>
+{% endmacro %}
+
+{% macro statusTag(status) %}
+	{% set class = status == "Publicada" ? "call-tag--publicada" : 
+								 status == "Adjudicada" ? "call-tag--adjudicada" : 
+								 status == "Cancelada" ? "call-tag--cancelada" : 
+								 status == "Abierta" ? "call-tag--abierta" : 
+								 status == "Cerrada" ? "call-tag--cerrada" : 
+								 "call-tag--default" %}
+
+	<div class={{ class }}>
+		<span>Convocatoria <span class="text-lowercase">{{ status }}</span></span>
+	</div>
+{% endmacro %}
+
+<div id="call-header" class="row no-gutters">
+	<div class="col-12 col-md-7 bg-primary-700">
+		<div class="content--left pt-6 pb-5 pb-md-8 px-3 mx-auto">
+			<div class="breadcrumb-header text-dark-900">
+				<a  id="goBack">&#8592; Volver</a>
+				<a href="/"> | Inicio / </a>
+				<a href="/convocatorias"> Convocatorias / </a>
+				<a href="/convocatorias"> Buscar convocatorias / </a>
+				<span>Beca de circulación nacional e internacional en arte dramático "bogotá invitado especial"</span>
+			</div>
+			<div class="mt-4">
+				{{ _self.statusTag(response.informacion_basica.estado) }}
+				{{ _self.entityTag(response.informacion_basica.entidad) }}
+			</div>
+			<p class="f-24 font-weight-bold text-primary-100 mt-4">{{ response.informacion_basica.nombre }}</p>
+			<p class="mt-2 text-primary-100">{{ response.informacion_basica.tipo_programa }}</p>
+			<a href="https://sicon.scrd.gov.co/admin_SCRD_pv/index.html" target="_blank" class="primary-button mt-5 mt-md-8 bg-primary-200 text-primary-800">Participar en esta convocatoria</a>
+			<p class="f-14 mt-1 text-primary-100">Para participar, inicia sesión en SICON y busca esta convocatoria</p>
+			<a href="/sites/default/files/2021-02/Condiciones_generales_PDE.pdf" target="_blank" class="f-18 font-weight-semibold mt-5 text-primary-100 conditions"><u class="pdf-icon--white-after">Ver condiciones de participación</u></a>
+		</div>
+		<div class="position-absolute animated-image--right">
+			<img src="/themes/custom/scrd_theme/images/arrow-animated.png" height="82">
+		</div>
+	</div>
+	<div class="col-12 col-md-5 bg-dark-400">
+		<div class="content--right h-100 py-3 pt-md-7 pb-md-5 px-3 mx-auto d-flex flex-column">
+			<p class="red-bell text-primary-500 mb-0">NOVEDADES</p>
+			<div class="pl-5 flex-grow-1">
+				<p class="text-dark-900 f-14 mb-2 mb-md-7">Recuerda revisar nuevos cambios y avisos</p>
+
+				<div class="scrollable">
+					{% for item1 in response.avisos_modificatorios %}
+						{% if item1.avisos == null %}
+							<div class="item pr-5 pb-4">
+								<div class="d-flex justify-content-between mb-1">
+									<span class="title text-dark-900 f-14 font-weight-bold mb-0">{{ item1.nombre|raw }}</span>
+									<p class="text-dark-800 mb-0 f-14">{{ item1.fecha_creacion|date('m/y') }}</p>
+								</div>
+								<span class="description d-inline-block mb-3 text f-14 text-dark-700">{{ item1.descripcion|raw }}</span>
+								<a href="javascript: void(0)" data-document="{{ item1.id_alfresco }}" title="{{ item1.nombre|raw }}" class="tertiary-button"><span class="pdf-icon--after">Descargar PDF</span></a>
+								<div class="border-item mt-4"></div>
+							</div>
+						
+						{% else %}
+
+							<p class="font-weight-bold mt-5">{{ item1.nombre|raw }}</p>
+							{% for item2 in item1.avisos %}
+								<div class="item pr-5 pb-4">
+									<div class="d-flex justify-content-between mb-1">
+										<span class="title text-dark-900 f-14 font-weight-bold mb-0">{{ item2.nombre|raw }}</span>
+										<p class="text-dark-800 mb-0 f-14">{{ item2.fecha_creacion|date('m/y') }}</p>
+									</div>
+									<span class="description d-inline-block mb-3 text f-14 text-dark-700">{{ item2.descripcion|raw }}</span>
+									<a href="javascript: void(0)" data-document="{{ item2.id_alfresco }}" title="{{ item2.nombre|raw }}" class="tertiary-button"><span class="pdf-icon--after">Descargar PDF</span></a>
+									<div class="border-item mt-4"></div>
+								</div>
+							{% endfor %}
+
+						{% endif %}
+					{% endfor %}
+
+					{% if response.avisos_modificatorios|length == 0 %}
+						<div class="border-empty">
+							<img src="/{{directory}}/images/sin-informacion.png" alt="No hay elementos">
+							<p>Aún no hay novedades ni avisos</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

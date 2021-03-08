@@ -1,0 +1,123 @@
+#block-views-block-calendar {
+  background-color: #f4f3f7;
+  .close-announcement {
+    background: white;
+    border: 1px solid $color-comp-500;
+    border-radius: 5px;
+  }
+
+  .close-calls-calendar__container {
+    border-bottom: 2px solid #aebecd;
+    @include media-breakpoint-down(sm) {
+      border: none;
+    }
+  }
+
+  .active-day {
+    background-color: #ff81b9 !important;
+    a.fc-daygrid-day-number {
+      color: white;
+    }
+  }
+
+  .fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 20px;
+  }
+
+  .fc-col-header {
+    tr {
+      background: $color-primary-500;
+      color: white;
+      th.fc-col-header-cell.fc-day {
+        border: 1px solid $color-primary-500;
+      }
+      a.fc-col-header-cell-cushion {
+        color: white;
+        text-transform: uppercase;
+        padding: 12px 0px;
+      }
+    }
+  }
+  .fc-toolbar-title {
+    font-size: 16px;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  .fc .fc-button .fc-icon {
+    width: 14px;
+    margin-bottom: 2px;
+  }
+
+  .fc-button-group {
+    margin-left: 0px;
+    margin-right: 20px;
+  }
+
+  button.fc-today-button.fc-button.fc-button-primary {
+    display: none;
+  }
+
+  button.fc-next-button.fc-button.fc-button-primary {
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    background: #978adb;
+    border-color: #978adb;
+  }
+
+  button.fc-prev-button.fc-button.fc-button-primary {
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    background: #6e7a8a;
+    border-color: #6e7a8a;
+    margin-right: 20px;
+  }
+  .fc .fc-button {
+    padding: 0px !important;
+  }
+
+  .fc .fc-toolbar {
+    justify-content: left;
+  }
+
+  .fc-icon-chevron-left:before {
+    margin-left: -6px;
+  }
+
+  .fc-icon-chevron-right:before {
+    margin-left: -4px;
+  }
+
+  a.fc-daygrid-day-number {
+    color: #646464;
+  }
+
+  td.fc-daygrid-day.fc-day.fc-day-today {
+    .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+      border: 2px solid #ffcc33;
+    }
+    background-color: white;
+  }
+
+  td.fc-daygrid-day.fc-day.close-call-day {
+    .fc-daygrid-day-frame.fc-scrollgrid-sync-inner {
+      border: 2px solid #ff5e5a;
+    }
+    background-color: white;
+  }
+
+  #calendarDayText {
+    text-transform: capitalize;
+  }
+
+  .calendar-news-button {
+    background: url("../images/boton-img-noticias.png") center/cover no-repeat;
+  }
+
+  .calendar-events-button {
+    background: url("../images/boton-img-eventos.png") center/cover no-repeat;
+  }
+}

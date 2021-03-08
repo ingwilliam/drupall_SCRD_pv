@@ -1,0 +1,23 @@
+{#
+/**
+ * Tab derechos
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-justification" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-justification"
+>
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Justificación</p>
+	<div class="text-dark-900 mt-5 f-18">
+		<p class="mb-5 text-responsive-18-16--sm">
+			{{ response.informacion_basica.justificacion|raw }}
+		</p>
+	</div>
+</div>

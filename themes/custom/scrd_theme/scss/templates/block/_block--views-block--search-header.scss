@@ -1,0 +1,12 @@
+.search-header {
+  height: 197px;
+
+  @include media-breakpoint-down(sm) {
+    height: auto;
+    .image-full-content {
+      img {
+        height: 84px;
+      }
+    }
+  }
+}

@@ -1,0 +1,238 @@
+{#
+/**
+ * @file
+ * Sobreescritura del BLOQUE de Datos y cifras.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  {# {% block content %}
+    {{ content }}
+  {% endblock %} #}
+
+
+    <div class="container-extra-large my-6">
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <p class="text-primary-700 font-weight-semibold">TIPO DE PROGRAMA: </p>
+                <div class="mt-3 pl-1" id="programSelectChart">
+                    <div class="container__radio text-dark-800 f-14 mb-4" id="tipo_programa--1">
+                        Programa Distrital de Estímulos para la Cultura
+                        <input type="radio" class="mr-3" {{ queryParams.tipo_programa == "1" or not queryParams.tipo_programa ? attributes.setAttribute('checked', '') : '' }}>
+                        <span class="checkmark__radio"></span>
+                    </div>
+                    <div class="container__radio text-dark-800 f-14 mb-4" id="tipo_programa--2">
+                        Programa Distrital de Apoyos Concertados
+                        <input type="radio" class="mr-3" {{ queryParams.tipo_programa == "2" ? attributes.setAttribute('checked', '') : '' }}>
+                        <span class="checkmark__radio"></span>
+                    </div>
+                </div>
+
+                <p class="text-primary-700 font-weight-semibold mt-2">AÑO: </p>
+                <select class="custom-select select--gray mr-sm-2 mb-4" id="yearSelectChart">
+                    <option value="0">Selecciona un año</option>
+                    {% for i in range(0, 5) %}
+                        <option value={{('now' | date('Y')) - i}} {{ queryParams.anio == (('now' | date('Y')) - i) or ( not queryParams.anio and i == 0 )? attributes.setAttribute('selected', '') : '' }}>
+                            {{('now' | date('Y')) - i}}                           
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <p class="text-primary-700 font-weight-semibold mt-2">CATEGORÍA: </p>
+                <div class="mt-3 pl-1">
+
+                    <label class="container__checkbox mb-2" id="resources--Checkbox">
+                        <a class="down-arrow w-100 d-block text-dark-800 f-14" data-toggle="collapse" href="#resources--Collapse" role="button" aria-expanded="false" aria-controls="resourcesCollapse">
+                            Recursos  
+                        </a>     
+                        <input type="checkbox" class="mr-3" {{ "1" in queryParams.tipo_grafica and  "2" in queryParams.tipo_grafica  and "3" in queryParams.tipo_grafica and  "4" in queryParams.tipo_grafica  and  "5" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                        <span class="checkmark__checkbox"></span>    
+                    </label>
+                    
+                 
+                 
+                    <div class="bg-dark-200 pl-6 py-3 collapse multi-collapse mb-2 show" id="resources--Collapse">
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--1">   
+                                Asignados por entidad     
+                            <input type="checkbox" class="mr-3" {{ "1" in queryParams.tipo_grafica or not queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--2">   
+                                Adjudicados por tipo de participante    
+                            <input type="checkbox" class="mr-3" {{ "2" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--3">   
+                                Adjudicados por entidad    
+                            <input type="checkbox" class="mr-3" {{ "3" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--4">   
+                                Adjudicados por localidad    
+                            <input type="checkbox" class="mr-3" {{ "4" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-0" id="tipo_grafica--5">   
+                                Adjudicados por area   
+                            <input type="checkbox" class="mr-3" {{ "5" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                    </div>
+
+                    <label class="container__checkbox mt-4 mb-2" id="proposals--Checkbox">
+                        <a class="down-arrow w-100 d-block text-dark-800 f-14" data-toggle="collapse" href="#proposals--Collapse" role="button" aria-expanded="false" aria-controls="proposalsCollapse">
+                            Propuestas 
+                        </a>     
+                        <input type="checkbox" class="mr-3" {{ "8" in queryParams.tipo_grafica and  "9" in queryParams.tipo_grafica  and "10" in queryParams.tipo_grafica and  "11" in queryParams.tipo_grafica  and  "12" in queryParams.tipo_grafica and  "13" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                        <span class="checkmark__checkbox"></span>       
+                    </label>
+
+                    <div class="bg-dark-200 pl-6 py-3 collapse multi-collapse mb-2 show" id="proposals--Collapse">
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--8">   
+                                Inscritas por línea estratégica     
+                            <input type="checkbox" class="mr-3" {{ "8" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--9">   
+                                Inscritas por enfoque     
+                            <input type="checkbox" class="mr-3" {{ "9" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--10">   
+                                Inscritas por tipo de participante   
+                            <input type="checkbox" class="mr-3" {{ "10" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--11">   
+                                Inscritas por localidad de ejecución     
+                            <input type="checkbox" class="mr-3" {{ "11" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--12">   
+                                Inscritas por entidad     
+                            <input type="checkbox" class="mr-3" {{ "12" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-0" id="tipo_grafica--13">   
+                                Inscritas por área
+                            <input type="checkbox" class="mr-3" {{ "13" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                    </div>
+
+                    <label class="container__checkbox mt-4 mb-2" id="announcements--Checkbox">
+                        <a class="down-arrow w-100 d-block text-dark-800 f-14" data-toggle="collapse" href="#announcements--Collapse" role="button" aria-expanded="false" aria-controls="announcementsCollapse">     
+                            Convocatorias 
+                        </a>     
+                        <input type="checkbox" class="mr-3" {{ "6" in queryParams.tipo_grafica and  "7" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                        <span class="checkmark__checkbox"></span>    
+                        
+                    </label>
+                
+
+                    <div class="bg-dark-200 pl-6 py-3 collapse multi-collapse mb-2 show" id="announcements--Collapse">
+                        <label class="container__checkbox text-dark-800 f-14 mb-4" id="tipo_grafica--6">   
+                                Estado de convocatorias     
+                            <input type="checkbox" class="mr-3" {{ "6" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                        <label class="container__checkbox text-dark-800 f-14 mb-0" id="tipo_grafica--7">   
+                                Convocatorias publicadas
+                            <input type="checkbox" class="mr-3" {{ "7" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                    </div>
+
+                    <label class="container__checkbox mt-4 mb-2" id="population--Checkbox">
+                        <a class="down-arrow w-100 d-block text-dark-800 f-14" data-toggle="collapse" href="#population--Collapse" role="button" aria-expanded="false" aria-controls="populationCollapse">
+                            Población 
+                        </a>    
+                        <input type="checkbox" class="mr-3" {{ "14" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                        <span class="checkmark__checkbox"></span>    
+                    </label>
+
+                    <div class="bg-dark-200 pl-6 py-3 collapse multi-collapse mb-2 show" id="population--Collapse">
+                        <label class="container__checkbox text-dark-800 f-14" id="tipo_grafica--14">   
+                                Rango etario del representante    
+                            <input type="checkbox" class="mr-3" {{ "14" in queryParams.tipo_grafica ? attributes.setAttribute('checked', '') : '' }}>
+                            <span class="checkmark__checkbox"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-9">
+                <p class="text-primary-700 font-weight-semibold">SELECCIONAR ENTIDAD: </p>
+
+                <ul class="nav nav-pills mb-3" id="entities-tabs" role="tablist">
+                    <li class="nav-item" id="entidad--todas">
+                        <div class="{{ queryParams.entidad ? 'call-tag--todas' : 'call-tag--todas active'}}" data-toggle="pill" href="" role="tab" aria-controls="">TODAS</div>
+                    </li>
+                    <li class="nav-item" id="entidad--6">
+                        <div class="{{ '6' in queryParams.entidad  and queryParams.entidad|length == 1 ? 'call-tag--idartes active' : 'call-tag--idartes'}}"  id="call-tag--idartes" data-toggle="pill" href="#call-tag--idartes__div" role="tab" aria-controls="call-tag--idartes" aria-selected={{ "6" in queryParams.entidad and queryParams.entidad|length == 1 ? "true" : "false"}}>IDARTES</div>
+                    </li>
+                    <li class="nav-item" id="entidad--2">
+                        <div class="{{ '2' in queryParams.entidad and queryParams.entidad|length == 1 ? 'call-tag--scrd active' : 'call-tag--scrd'}}" id="call-tag--scrd" data-toggle="pill" href="#call-tag--scrd__div" role="tab" aria-controls="call-tag--scrd__div" aria-selected={{ "2" in queryParams.entidad and queryParams.entidad|length == 1 ? "true" : "false"}}>SCRD</div>
+                    </li>
+                    <li class="nav-item" id="entidad--7">
+                        <div class="{{ '7' in queryParams.entidad and queryParams.entidad|length == 1 ? 'call-tag--fuga active' : 'call-tag--fuga'}}" id="call-tag--fuga" data-toggle="pill" href="#call-tag--fuga__div" role="tab" aria-controls="call-tag--fuga__div" aria-selected={{ "7" in queryParams.entidad and queryParams.entidad|length == 1 ? "true" : "false"}}>FUGA</div>
+                    </li>
+                    <li class="nav-item" id="entidad--5">
+                        <div class="{{ '5' in queryParams.entidad and queryParams.entidad|length == 1 ? 'call-tag--ofb active' : 'call-tag--ofb'}}" id="call-tag--ofb" data-toggle="pill" href="#call-tag--ofb__div" role="tab" aria-controls="call-tag--ofb__div" aria-selected={{ "5" in queryParams.entidad and queryParams.entidad|length == 1 ? "true" : "false"}}>OFB</div>
+                    </li>
+                    <li class="nav-item" id="entidad--4">
+                        <div class="{{ '4' in queryParams.entidad and queryParams.entidad|length == 1 ? 'call-tag--idpc active' : 'call-tag--idpc'}}" id="call-tag--idpc" data-toggle="pill" href="#call-tag--idpc__div" role="tab" aria-controls="call-tag--idpc__div" aria-selected={{ "4" in queryParams.entidad and queryParams.entidad|length == 1 ? "true" : "false"}}>IDPC</div>
+                    </li>
+                </ul>
+                <div class="tab-content pb-4" id="entities-tabContent">
+                    <div class="{{ '6' in queryParams.entidad and queryParams.entidad|length == 1 ? 'tab-pane fade show call-tag--idartes tag--lg active' : 'tab-pane fade show call-tag--idartes tag--lg'}}" id="call-tag--idartes__div" role="tabpanel" aria-labelledby="call-tag--idartes__div">Institulo Distrital de las Artes</div>
+                    <div class="{{ '2' in queryParams.entidad and queryParams.entidad|length == 1 ? 'tab-pane fade show call-tag--scrd tag--lg active' : 'tab-pane fade show call-tag--scrd tag--lg'}}" id="call-tag--scrd__div" role="tabpanel" aria-labelledby="call-tag--scrd__div">Secretaria Cultura, Recreación y Deporte</div>
+                    <div class="{{ '7' in queryParams.entidad and queryParams.entidad|length == 1 ? 'tab-pane fade show call-tag--fuga tag--lg active' : 'tab-pane fade show call-tag--fuga tag--lg'}}" id="call-tag--fuga__div" role="tabpanel" aria-labelledby="call-tag--fuga__div">Fundación Gilberto Alzate Avendaño</div>
+                    <div class="{{ '5' in queryParams.entidad and queryParams.entidad|length == 1 ? 'tab-pane fade show call-tag--ofb tag--lg active' : 'tab-pane fade show call-tag--ofb tag--lg'}}" id="call-tag--ofb__div" role="tabpanel" aria-labelledby="call-tag--ofb__div">Orquesta Filarmónica de Bogotá</div>
+                    <div class="{{ '4' in queryParams.entidad and queryParams.entidad|length == 1 ? 'tab-pane fade show call-tag--idpc tag--lg active' : 'tab-pane fade show call-tag--idpc tag--lg'}}" id="call-tag--idpc__div" role="tabpanel" aria-labelledby="call-tag--idpc__div">Institulo Distrital de Patrimonio Cultura</div>
+                </div>  
+
+                <div id="chartsDiv">
+                    <div class="loading d-flex justify-content-center align-items-center mt-8">
+                        <img src="/{{directory}}/images/spin.gif" style="height: 130px;"></img>
+                    </div>          
+                </div>
+
+    
+
+                            
+            </div>
+        </div>
+    </div>   
+</div>

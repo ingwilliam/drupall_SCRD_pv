@@ -1,0 +1,32 @@
+{#
+/**
+ * Tab derechos
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-duties-rights" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-rights-tab call-detail-menu-duties-tab"
+>
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Derechos específicos de los ganadores</p>
+	<div class="text-dark-900 mt-5 f-18">
+		<p class="mb-5 text-responsive-18-16--sm">
+			{{ response.derechos_especificos_ganadores|raw }}
+		</p>
+	</div>
+
+	<div id="scroll-to-this-duties"></div>
+
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center mt-8">Deberes específicos de los ganadores</p>
+	<div class="text-dark-900 mt-5 f-18">
+		<p class="mb-5 text-responsive-18-16--sm">
+			{{ response.deberes_especificos_ganadores|raw }}
+		</p>
+	</div>
+</div>

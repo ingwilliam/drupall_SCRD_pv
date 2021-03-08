@@ -1,0 +1,26 @@
+name: scrd_theme
+type: theme
+description: 'scrd_theme based in bootstrap4 theme'
+core: 8.x
+core_version_requirement: ^8 || ^9
+base theme: bootstrap4
+
+# Stylesheets.
+stylesheets-remove:
+  - '@bootstrap4/css/style.css'
+
+# Libraries.
+libraries:
+  - scrd_theme/global-styling
+  - scrd_theme/global-scripts
+  - scrd_theme/fonts
+
+# Regions.
+regions:
+  header: Header
+  nav_relevant: 'Navegacion promocional'
+  breadcrumb: 'Migas de pan'
+  content: 'Contenido principal'
+  contact: 'Contacto'
+  questions: 'Preguntas frecuentes'
+  footer: Footer

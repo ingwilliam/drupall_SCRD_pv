@@ -1,0 +1,1 @@
+{"version":3,"sources":["templates/block/block--scrd-theme-branding.scss"],"names":[],"mappings":"AAAA,4BACE,WAAY,CACZ,WAAY","file":"block--scrd-theme-branding.css","sourcesContent":[".navbar-brand img.main-logo {\n  width: 100px;\n  height: 48px;\n}\n"]}

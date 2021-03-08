@@ -1,0 +1,1 @@
+{"version":3,"sources":["templates/block/block--scrd-theme-main-menu.scss"],"names":[],"mappings":"AAAA,sBAEE,aACD,CAHD,uCAME,cAAe,CACf,gBAAiB","file":"block--scrd-theme-main-menu.css","sourcesContent":[".main-menu {\n\ta.nav-link {\n\t\tcolor: #F7F6FE\n\t}\n\n\ta.nav-link.active.is-active {\n\t\tfont-size: 18px;\n\t\tfont-weight: bold;\n\t}\n}"]}

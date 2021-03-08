@@ -1,0 +1,55 @@
+{#
+/**
+ * Tab resoluciones
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-resolutions" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-resolutions-tab"
+>
+	<div class="table-responsive wider">
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Resoluciones</p>
+		<table class="table table-bordered mt-5">
+			<colgroup>
+				<col class="w-5">
+				<col class="w-35">
+				<col class="w-60">
+			</colgroup>
+    
+			<thead>
+				<tr>
+					<th scope="col" class="f-14">No.</th>
+					<th scope="col" class="f-14">Documento</th>
+					<th scope="col" class="f-14">Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in response.resoluciones %}
+					<tr>
+						<td class="text-dark-900">{{ loop.index }}</td>
+						<td class="f-14">
+							<a href="javascript: void(0)" data-document="{{ item.id_alfresco }}" title="{{ item.nombre }}"><u>{{ item.nombre }}</u></a>
+							<br>
+							<div class="call-tag-pdf"><span></span></div>
+						</td>
+						<td class="text-dark-900 f-14">{{ item.descripcion|raw}}</td>
+					</tr>
+				{% endfor %}
+
+				{% if response.resoluciones|length == 0 %}
+					<div class="border-empty">
+						<img src="/{{directory}}/images/sin-informacion.png" alt="No hay elementos">
+						<p>No se encontró contenido en esta sección</p>
+					</div>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+</div>

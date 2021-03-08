@@ -1,0 +1,63 @@
+.calls-list {
+  &__filters {
+    .call-filter-tag {
+      padding: 3px 8px;
+      margin-right: 5px;
+    }
+
+    .line-space {
+      border-bottom: 1px solid $color-dark-500;
+      margin-top: 58px;
+    }
+
+    @media (max-width: $screen-xl) {
+      .side-menu {
+        width: 0;
+        height: 100%;
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        background-color: white;
+        overflow-x: hidden;
+        border-top: 1px solid #7c5cbc;
+        border-right: 1px solid #7c5cbc;
+        border-bottom: 1px solid #7c5cbc;
+        transition: all ease 0.5s;
+
+        &__container {
+          width: 300px;
+        }
+      }
+    }
+  }
+
+  &__content {
+    .card {
+      border: 1px solid $color-dark-500;
+      background-color: white;
+      overflow: hidden;
+
+      .custom-select {
+        padding: 0 12px 0 0px;
+        background-position: center right !important;
+      }
+    }
+  }
+
+  .table-bordered {
+    min-width: 700px;
+    tbody tr td {
+      font-size: 18px;
+    }
+  }
+
+  .table-bordered th,
+  .table-bordered td {
+    padding: 10px 16px !important;
+  }
+
+  .table thead th {
+    font-size: 20px;
+  }
+}

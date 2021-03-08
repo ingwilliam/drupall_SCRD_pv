@@ -1,0 +1,24 @@
+#block-views-block-frequent-questions-header {
+  .image-container {
+    img {
+      width: 100%;
+      height: 222px;
+      object-fit: cover;
+      object-position: top;
+      @include media-breakpoint-down(sm) {
+        height: 86px;
+      }
+    }
+  }
+
+  .content-container {
+    max-width: 550px;
+
+    .breadcrumb-header {
+      a:first-child {
+        font-weight: 700;
+        color: black;
+      }
+    }
+  }
+}

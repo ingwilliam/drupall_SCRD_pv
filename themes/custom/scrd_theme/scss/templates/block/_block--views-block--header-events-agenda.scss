@@ -1,0 +1,51 @@
+#block-views-block-header-events-agenda {
+  .image-container {
+    img {
+      @include media-breakpoint-down(sm) {
+        height: 170px;
+      }
+      width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .content-container {
+    max-width: 550px;
+
+    .breadcrumb-header {
+      a:first-child {
+        font-weight: 700;
+        color: black;
+      }
+    }
+
+    .title {
+      min-height: 140px;
+      @include media-breakpoint-down(sm) {
+        font-size: 30px !important;
+        line-height: 39px;
+      }
+    }
+
+    .tag {
+      padding: 0 26px;
+      background-color: #e1faeb;
+      border-radius: 5px;
+      color: #197341;
+    }
+
+    .date-box {
+      width: 190px;
+    }
+  }
+
+  .img-arrow-events {
+    @include media-breakpoint-down(sm) {
+      left: 50%;
+      img {
+        transform: translateX(-50%) !important;
+      }
+    }
+  }
+}

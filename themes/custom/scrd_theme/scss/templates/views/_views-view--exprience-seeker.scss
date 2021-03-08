@@ -1,0 +1,19 @@
+#views-view-exprience-seeker {
+  .experience-list {
+    &__filters {
+      .filter-tag {
+        padding: 3px 8px;
+      }
+
+      .line-space {
+        border-bottom: 1px solid $color-dark-500;
+        margin-top: 58px;
+      }
+    }
+
+    &__locations {
+      background: url("../images/semicircles.png") center top no-repeat;
+      background-size: 100% auto;
+    }
+  }
+}

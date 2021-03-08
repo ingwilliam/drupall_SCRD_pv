@@ -1,0 +1,163 @@
+{#
+/**
+ * @file
+ * Sobreescritura del detalle general de cada experiencia
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    
+  ]
+%}
+
+
+{%
+	set tag_class = [node.field_entity.value == "IDARTES" ? "call-tag--idartes tag--lg" : 
+									node.field_entity.value == "IDPC" ? "call-tag--idpc tag--lg" : 
+									node.field_entity.value == "OFB" ? "call-tag--ofb tag--lg" : 
+									node.field_entity.value == "SCRD" ? "call-tag--scrd tag--lg" : 
+									node.field_entity.value == "FUGA" ? "call-tag--fuga tag--lg" : 
+									"call-tag--default", "mb-1","m-md-0",]
+%}
+
+
+{{ attach_library('classy/node') }}
+
+
+{# <pre>
+    {{ dump() }}
+</pre> #}
+<article{{ attributes.addClass(classes) }}>
+  {{ title_suffix }}
+
+  <div class="row experience-header no-gutters" >
+    <div class="col-12 col-md-6 d-block d-md-flex justify-content-center bg-dark-300 pt-5 news-header__right h-100">  
+      <div class= "px-2 p-md-auto"style="max-width: 506px; width: 100%;">
+        <div div class="breadcrumb-header pb-6 text-truncate">
+          <a id="goBack">&#8592; Volver</a>
+          <a href="/"> | Inicio / </a>
+          <a href="/experiencias-ganadoras">Experiencias / </a>
+          <a href="/experiencias-ganadoras">Experiencias  ganadoras/ </a>
+          <a>{{ label.0 }}</a>
+        </div>
+        <div class="experience-header__right--text">
+          <p class="f-24 d-none d-md-block text-primary-600 font-weight-semibold mb-0">Experiencia</p>
+          <p class="text-primary-600 title-responsive-36-24--sm font-weight-bold mb-1 experience-header__right--title">{{ label }}</p>
+          <p class="text-primary-900 f-16">{{ content.field_program_type.0 }}</p>
+          <p {{ attributes.addClass(tag_class)}}>{{ content.field_entity.0 }}</p>
+          <p class="call-tag--year">{{ content.field_realization_date.0 }}</p>
+        </div>
+      </div>  
+      <div class="position-absolute animated-image--right img-arrow pt-5">
+        <img src="/{{directory}}/images/arrow-animated.png" height="82">
+      </div>     
+    </div> 
+    <div class="col-6 image-full-content h-100 d-none d-md-block"> 
+      {{ content.field_image.0 }}
+    </div>
+  </div>  
+  <div class="container mt-6 mb-8">
+    <div class="row no-gutters justify-content-between">
+      <div class="col-12 col-md-4">
+        <div>
+          <a class="secondary-button w-100 mb-4 px-4" href="/experiencias-ganadoras">Volver a todas las experiencias<span class="arrow-left-purple"></span></a>
+          <p class="text-dark-900 font-weight-bold mb-0 f-18">Nombre del creador</p>
+          <p class="text-dark-900 mb-2">{{ content.field_creator.0["#text"] }}</p>
+          <p class="text-dark-900 font-weight-bold mb-0 f-18">Línea de participación</p>
+          <p class="text-dark-900 mb-2">{{ content.field_line.0 }}</p>
+          <p class="text-dark-900 font-weight-bold mb-0 f-18">Área</p>
+          <p class="text-dark-900 mb-2">{{ content.field_area.0 }}</p>
+          <p class="text-dark-900 font-weight-bold mb-0 f-18">Convocatoria</p>
+          <p class="text-dark-900 mb-2">{{ content.field_announcement.0["#text"] }}</p>
+          <p class="text-dark-900 font-weight-bold mb-0 f-18">Tipo de contenido</p>
+          <p class="text-dark-900 mb-2">{{ content.field_content_type.0 }}</p>
+          <p class="text-dark-900 font-weight-bold mb-0 f-18">Localidad:</p>
+          <p class="text-dark-900 locationText" id="locationId--{{ node.field_locations.target_id }}">{{ content.field_locations.0 }}</p>
+          <div class="py-7 experience--full__location mt-4">
+            {% include directory ~ '/partials/locations-svg.html.twig'%}
+          </div>
+          <p class="d-none d-md-flex text-primary-700 f-16 mt-6"><strong>Enlaces de interés</strong></p>
+          <a class="d-none d-md-flex calendar-icon--5 bg-primary-100 text-primary-700 mb-3 px-3 py-2 align-items-center" href="/convocatorias" style="border-radius: 5px">Ver convocatorias</a>
+          <a class="d-none d-md-flex calendar-icon--3 bg-primary-100 text-primary-700 mb-3 px-3 py-2 align-items-center" href="https://www.culturarecreacionydeporte.gov.co/convocatorias/historicos" style="border-radius: 5px">Historial</a>
+          <a class="d-none d-md-flex data-icon bg-primary-100 text-primary-700 mb-3 px-3 py-2 align-items-center" href="/datos-cifras" style="border-radius: 5px">Cifras y datos</a>
+        </div>
+      </div>
+      <div class="col-12 col-md-7 text-dark-900">
+        {{ content.body }}
+      </div>
+    </div>
+  </div>
+
+</article>

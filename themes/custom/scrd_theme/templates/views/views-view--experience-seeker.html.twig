@@ -1,0 +1,368 @@
+{#
+/**
+ * @file
+ * Sobreescritura de la vista-pagina "Experiencias"
+ *
+ * Available variables:
+ * - attributes: Remaining HTML attributes for the element.
+ * - css_name: A CSS-safe version of the view name.
+ * - css_class: The user-specified classes names, if any.
+ * - header: The optional header.
+ * - footer: The optional footer.
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The optional pager next/prev links to display.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Optional feed icons to display.
+ * - more: An optional link to the next page of results.
+ * - title: Title of the view, only used when displaying in the admin preview.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the view title.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the view title.
+ * - attachment_before: An optional attachment view to be displayed before the
+ *   view content.
+ * - attachment_after: An optional attachment view to be displayed after the
+ *   view content.
+ * - dom_id: Unique id for every view being printed to give unique class for
+ *   Javascript.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-id-' ~ id,
+    'view-display-id-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+
+<div id="views-view-exprience-seeker" {{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {% if title %}
+    {{ title }}
+  {% endif %}
+  {{ title_suffix }}
+  {% if header %}
+    <div class="view-header">
+      {{ header }}
+    </div>
+  {% endif %}
+  {% if exposed %}
+    <div class="view-filters">
+      {{ exposed }}
+    </div>
+  {% endif %}
+  {% if attachment_before %}
+    <div class="attachment attachment-before">
+      {{ attachment_before }}
+    </div>
+  {% endif %}
+	<div class="bg-dark-200 py-6">
+		<div class="container">
+			<div class="row justify-content-center">
+					<div class="col-md-8">
+						<div class="row">
+							<div class="col-12 col-md-6 pt-0 pt-md-6">
+								<div class="row no-gutters align-items-center">
+									<div class="col-12 col-md-11 bg-dark-500 px-4 py-1">
+										<p class="f-20 text-dark-900 mb-0">Buscar por localidad</p>
+									</div>
+									<div class="d-none d-md-block triangle-right"></div>
+								</div>
+								<div class="row no-gutters">
+									<div class="col-12 col-md-11 bg-light  px-4 py-3" id="locationsSelected">
+										<p class="f-20 text-dark-700 mb-0" id="locationsSelected--default">Selecciona una localidad</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 experience-list__locations pt-4">
+								{% include directory ~ '/partials/locations-svg.html.twig'%}
+							</div>
+						</div>
+					</div>			
+			</div>
+		</div>
+	</div>
+	<div class="container pb-8 pt-4" style="max-width: 1200px">
+		<div class="row no-gutters justify-content-center" id="titleSearch">
+			<div class="col-12 col-md-6">
+				<input class="search-bar w-100" type="text" placeholder="Busca por palabra clave" spellcheck {{ queryParams.title and queryParams.title != " " ? attributes.setAttribute('value', queryParams.title) : '' }}>
+			</div>
+			<a class="search-call">Buscar experiencia</a>
+		</div>
+
+		<div class="row d-flex d-md-none mt-4" id="filtersResponsiveButtons">
+			<div class="col-6 pr-1">
+				<a class="secondary-button d-flex justify-content-around my-4 px-2" id="filtersButton">filtrar <span class="filter-icon"></span></a>
+			</div>
+
+			<div class="col-6 pl-1">
+				{# <select class="secondary-button my-4 select-purple px-2 text-truncate" id="dateSelect">
+					<option value="0">ordenar</option>
+					<option value="DESC" {{ queryParams.sort_order == "DESC" ? attributes.setAttribute('selected', '') : '' }}>Más recientes</option>
+					<option value="ASC" {{ queryParams.sort_order == "ASC" ? attributes.setAttribute('selected', '') : '' }}>Más antiguas</option>
+				</select> #}
+				<div class="d-block d-md-none my-3 px-2">
+					{% include directory ~ '/partials/sort-by-date.html.twig'%}
+				</div>
+			</div>
+		</div>
+
+		<div class="row mt-4 mt-md-6">
+
+			{# Filtros personalizados #}	
+
+			<div class="col-12 col-md-3 experience-list__filters">
+				<p class="text-primary-700 font-weight-semibold">FILTROS APLICADOS: </p>
+
+				<p class="text-dark-800 f-14 mt-1">{{ view.total_rows }} resultados</p>
+				<div class="d-flex flex-wrap mt-4" id="tagsFilters">
+				</div> 
+			
+				<div class="d-flex justify-content-center">
+					<a class="tertiary-button mt-3" id="cleanFilters">Limpiar todos los filtros</a>
+				</div>
+
+				<div class="d-none d-md-block line-space"></div>
+
+
+				<div id="filtersDiv">
+					<div style="width: 250px;">
+						<a class="d-md-none closebtn" id="filtersButtonClose">&times;</a>
+						<p class="d-md-none text-primary-700 f-24 font-weight-bold">Filtros</p>
+						<p class="text-primary-700 font-weight-semibold mt-2">
+							AÑO: 
+							<span class="tooltip-icon--purple tip">
+								<span>
+									Selecciona el año de las convocatorias que deseas consultar
+								</span>
+							</span>	
+						</p>
+
+						<select class="custom-select select--gray mr-sm-2" id="yearSelect">
+							<option value="0">Todos</option>
+							{% for i in range(0, 5) %}
+								<option value={{('now' | date('Y')) - i}} {{ queryParams.year == (('now' | date('Y')) - i) ? attributes.setAttribute('selected', '') : '' }}>
+									{{('now' | date('Y')) - i}}
+								</option>
+							{% endfor %}
+						</select>
+
+						<p class="text-primary-700 font-weight-semibold mt-5">
+							ENTIDAD: 
+							<span class="tooltip-icon--purple tip">
+								<span>
+									El sector cultura, recreación y deporte está conformado por un grupo de cinco entidades públicas adscritas y una vinculada que buscan que la cultura, el arte, el patrimonio, el deporte, la recreación y la actividad física estén en el centro del pleno desarrollo humano de los ciudadanos y las ciudadanas de Bogotá.
+								</span>
+							</span>
+						</p>
+
+						<div class="mt-3 pl-3" id="entitySelect">
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="SCRD">
+								Secretaría de cultura recreación y deporte
+								<input type="checkbox" class="mr-3" {{ "SCRD" in queryParams.field_entity_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="IDARTES">
+								Institulo distrital de las artes
+								<input type="checkbox" class="mr-3" {{ "IDARTES" in queryParams.field_entity_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="OFB">
+								Orquesta filarmónica de bogotá
+								<input type="checkbox" class="mr-3" {{ "OFB" in queryParams.field_entity_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="IDPC">
+								Institulo distrital de patrimonio cultural
+								<input type="checkbox" class="mr-3" {{ "IDPC" in queryParams.field_entity_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="FUGA">
+								Fundación Gilberto Alzate Avendaño
+								<input type="checkbox" class="mr-3" {{ "FUGA" in queryParams.field_entity_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+						</div>
+
+						<p class="text-primary-700 font-weight-semibold mt-5">
+							TIPO DE PROGRAMA: 
+							<span class="tooltip-icon--purple tip"><span> Participar de las convocatorias en uno de los dos programas de fomento para la cultura</span></span>
+						</p>
+
+						<div class="mt-3 pl-3" id="programSelect">
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="PDEC">
+								Programa Distrital de Estímulos para la Cultura
+								<input type="checkbox" class="mr-3" {{ "PDEC" in queryParams.field_program_type_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="PDAC">
+								Programa Distrital de Apoyos Concertados
+								<input type="checkbox" class="mr-3" {{ "PDAC" in queryParams.field_program_type_value ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+						</div>
+
+						<p class="text-primary-700 font-weight-semibold mt-5">LOCALIDAD: </p>
+
+						<div class="mt-3 pl-3" id="locationSelect">
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--8">
+								Usaquén
+								<input type="checkbox" {{ "8" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--9">
+								Chapinero
+								<input type="checkbox" {{ "9" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--10">
+								Santa Fe
+								<input type="checkbox" {{ "10" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--11">
+								San Cristóbal
+								<input type="checkbox" {{ "11" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--12">
+								Usme
+								<input type="checkbox" {{ "12" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--13">
+								Tunjuelito
+								<input type="checkbox" {{ "13" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--14">
+								Bosa
+								<input type="checkbox" {{ "14" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--15">
+								Kennedy
+								<input type="checkbox" {{ "15" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--16">
+								Fontibón
+								<input type="checkbox" {{ "16" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--17">
+								Engativá
+								<input type="checkbox" {{ "17" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--18">
+								Suba
+								<input type="checkbox" {{ "18" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--19">
+								Barrios Unidos
+								<input type="checkbox" {{ "19" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--20">
+								Teusaquillo
+								<input type="checkbox" {{ "20" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--21">
+								Los Mártires
+								<input type="checkbox" {{ "21" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--22">
+								Antonio Nariño
+								<input type="checkbox" {{ "22" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--23">
+								Puente Aranda
+								<input type="checkbox" {{ "23" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--24">
+								Candelaria
+								<input type="checkbox" {{ "24" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--25">
+								Rafael Uribe Uribe
+								<input type="checkbox" {{ "25" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--26">
+								Ciudad Bolívar
+								<input type="checkbox" {{ "26" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</div>
+							<div class="container__checkbox text-dark-800 f-14 mb-4" id="locationSelect--27">
+								Sumapaz
+								<input type="checkbox" {{ "27" in queryParams.field_locations_target_id ? attributes.setAttribute('checked', '') : '' }}> 
+								<span class="checkmark__checkbox"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 col-md-9 mt-6 mt-md-0">
+				<div class="d-none d-md-block">
+					{% include directory ~ '/partials/sort-by-date.html.twig'%}
+				</div>
+				
+				{# Contenido #}
+
+				{% if rows %}
+					<div class="view-content mt-3">
+						{{ rows }}
+					</div>
+				{% else %}
+					<div class="d-flex flex-column align-items-center no-results m-auto text-center">
+						{% include directory ~ '/partials/no-results.html.twig'%}
+						<p class="f-16 text-dark-800 my-4">No podemos encontrar ningúna experiencia que coincida con tu búsqueda</p>
+						<a class="primary-button" href="/experiencias-ganadoras">Limpiar filtros</a>
+					</div>
+				{% endif %}
+				<div class="mt-8">
+					{% if pager %}
+						{{ pager }}
+					{% endif %}
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+
+
+  
+  {% if attachment_after %}
+    <div class="attachment attachment-after">
+      {{ attachment_after }}
+    </div>
+  {% endif %}
+  {% if more %}
+    {{ more }}
+  {% endif %}
+  {% if footer %}
+    <div class="view-footer">
+      {{ footer }}
+    </div>
+  {% endif %}
+  {% if feed_icons %}
+    <div class="feed-icons">
+      {{ feed_icons }}
+    </div>
+  {% endif %}
+</div>

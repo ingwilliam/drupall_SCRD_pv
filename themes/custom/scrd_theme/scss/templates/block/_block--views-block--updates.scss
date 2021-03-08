@@ -1,0 +1,21 @@
+#block-views-block-updates {
+  background-color: #f6f8ff;
+
+  .view-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: $screen-md) {
+  #block-views-block-updates {
+    .u-title {
+      font-size: 36px;
+      line-height: 55px;
+    }
+
+    .u-news {
+      padding-right: 5px !important;
+    }
+  }
+}

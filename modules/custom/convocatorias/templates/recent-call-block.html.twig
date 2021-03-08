@@ -1,0 +1,128 @@
+{#
+/**
+ * Bloque de convocatorias recientes.
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+{{ attach_library('convocatorias/convocatorias_lib') }}
+
+{% set entities = [
+		{'name': 'Secretaría de Cultura, Recreación y Deporte', 'class': 'scrd--puzzle', 'short_name': 'SCRD', 'id': '2'}, 
+		{'name': 'Institulo Distrital de las Artes', 'class': 'ofb--puzzle', 'short_name': 'IDARTES', 'id': '6'},
+		{'name': 'Orquesta Filarmónica de Bogotá', 'class': 'fuga--puzzle', 'short_name': 'OFB', 'id': '5'},
+		{'name': 'Instituto Distrital de Patrimonio Cultural', 'class': 'idpc--puzzle', 'short_name': 'IDPC', 'id': '4'},
+		{'name': 'Fundación Gilberto Alzate Avendaño', 'class': 'idartes--puzzle', 'short_name': 'FUGA', 'id': '7'}
+	] 
+%}
+
+{% macro entityTag(entity) %}
+	{% set class = entity == "IDARTES" ? "call-tag--idartes" : 
+								 entity == "IDPC" ? "call-tag--idpc" : 
+								 entity == "OFB" ? "call-tag--ofb" : 
+								 entity == "SCRD" ? "call-tag--scrd" : 
+								 entity == "FUGA" ? "call-tag--fuga" : 
+								 "call-tag--default" %}
+
+	<div class={{ class }}>
+		<span>{{ entity }}</span>
+	</div>
+{% endmacro %}
+
+{% macro statusTag(status) %}
+	{% set class = status == "Publicada" ? "call-tag--publicada" : 
+								 status == "Adjudicada" ? "call-tag--adjudicada" : 
+								 status == "Cancelada" ? "call-tag--cancelada" : 
+								 status == "Abierta" ? "call-tag--abierta" : 
+								 status == "Cerrada" ? "call-tag--cerrada" : 
+								 "call-tag--default" %}
+
+	<div class={{ class }}>
+		<span>Convocatoria <span class="text-lowercase">{{ status }}</span></span>
+	</div>
+{% endmacro %}
+
+<div class="recent-call container py-7">
+
+	<img src="/{{directory}}/images/puzzle.png" alt="" class="recent-call__puzzle position-absolute d-none d-lg-block">
+
+	<div class="row mb-5">
+		<div class="col">
+			<h2{{ title_attributes }} class="section-title">{{ title }}</h2>
+		</div>
+	</div>
+
+	<div class="row no-gutters justify-content-center ">
+		<div class="col-12 col-lg-9">
+			<form action="javascript: void(0)" class="d-flex flex-column flex-lg-row" id="search-recent-call-bar">
+				<label class="visually-hidden" for="fsearch">Ingresa una busqueda</label>
+
+				<div style="flex: 1">
+					<input class="search-bar w-100" id="text-name-recent-call" name="fsearch" placeholder="Busca por palabras clave" spellcheck="true" type="text" />
+					<span class="text-primary-900">Ejemplo: Beca de música</span>
+				</div>
+				<input class="search-call mx-auto mx-lg-0" type="submit" value="Buscar convocatorias" />&nbsp;
+			</form>
+		</div>
+	</div>	
+
+	<div class="mt-6"></div>
+
+	<div class="row d-flex justify-content-center mb-4">
+		<div class="col-12 col-lg-8 d-flex flex-wrap justify-content-between">
+			<span class="text-primary-800 d-block d-md-block filter-label">Filtrar por entidad:</span>
+			<div class="mx-auto">
+				{% for item in entities %}
+					<div class="d-inline-block py-1 py-md-0">
+						<a href="/convocatorias?entidad[]={{ item.id }}" class="title-hover custom-tooltip" title="{{ item.name }}">
+							<span class="{{ item.class }}">{{ item.short_name }}<span>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	{% for item in data.respuesta %}
+		<div class="row mb-3">
+			<div class="col">
+				<div class="recent-call__card px-3 py-4 p-sm-5">
+					<div class="row">
+						<div class="col-12 col-lg-8">
+							<div class="row">
+								<div class="col">
+									{{ _self.statusTag(item.estado) }}
+									&nbsp;
+									{{ _self.entityTag(item.entidad) }}
+									&nbsp;
+									<div class="call-tag--year">
+										{{ item.anio }}
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									<p class="font-weight-bold mt-4 mb-0 f-20 text-primary-900">{{ item.convocatoria }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 col-lg-4 d-flex justify-content-center justify-content-lg-end align-items-center mt-3 mt-lg-0">
+							<a href="/convocatorias/{{ item.id }}" class="secondary-button">Ver convocatoria</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+	<div class="row mt-4">
+		<div class="col d-flex justify-content-center p-0">
+			<a href="/convocatorias" class="secondary-button" >Ver más convocatorias</a>
+		</div>
+	</div>
+</div>
