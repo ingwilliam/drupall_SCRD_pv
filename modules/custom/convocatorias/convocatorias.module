@@ -1,0 +1,160 @@
+  <?php
+	/**
+	 * @file
+	 */
+
+	/**
+	 * Implements theme_hook()
+	 */
+	// Controla las diferentes vistas del tema con sus respectivos datos provenientes del controlador
+
+	function convocatorias_theme($existing, $type, $theme, $path)
+	{
+		return [
+			'recent_call_block' => [
+				'variables' => ['data' => [], 'title' => ""],
+			],
+			'calls_list_pdec' => [
+				'variables' => [
+					'data' => [],
+					'queryParams' => [],
+					'number_items_page' => 0
+				]
+			],
+			'calls_list_pdac' => [
+				'variables' => [
+					'data' => [],
+					'queryParams' => [],
+					'number_items_page' => 0
+				]
+			],
+			'call_detail' => [
+				'variables' => [
+					'data' => [],
+					'call_id' => ""
+				]
+			],
+			'calls_list_error' => [
+				'variables' => [
+					'title' => "",
+					'data' => []
+				]
+			]
+		];
+	}
+
+	/**
+	 *	Implements requests
+	 */
+
+	// Función de peticiones. Utilizado en los controladores para manejar las peticiones
+
+	function my_module_reponse($url, $method = 'GET', $params = '', $params_count = 0)
+	{
+		$methods = [
+			'POST',
+			'GET',
+			'PUT',
+			'DELETE'
+		];
+		$result = array();
+
+		try {
+			if (empty($url)) {
+				throw new Exception("Invalid url");
+			}
+			if (in_array(strtoupper($method), $methods) === FALSE) {
+				throw new Exception("Invalid method");
+			} else {
+				// will need a request call for GET, POST, PUT
+				switch (strtoupper($method)) {
+					case 'GET':
+					case 'POST':
+					case 'PUT':
+					case 'DELETE':
+						if (function_exists('my_module_call_request')) {
+							$result = my_module_call_request($url, $method, $params, $params_count);
+						}
+						break;
+					default:
+						throw new Exception("Invalid method");
+						break;
+				}
+			}
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
+		return $result;
+	}
+
+
+	/**
+	 * Función encargada de realizar la petición al servicio drupal
+	 */
+	function my_module_call_request($requesturl, $method, $params, $params_count)
+	{
+		$base_url = "https://sicon.scrd.gov.co/crud_SCRD_pv/api/";
+		// request url
+		$url = $requesturl;
+
+		try {
+			// initialized curl
+			$ch = curl_init();
+
+			curl_setopt($ch, CURLOPT_URL, $base_url . $url);
+			curl_setopt($ch, CURLOPT_POST, $params_count);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_ENCODING, '');
+			curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+			curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/x-www-form-urlencoded'
+			));
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+			$result = curl_exec($ch);
+			$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+			$contentLength = curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+
+			curl_close($ch);
+
+			return ['data' => $result, 'content_type' => $contentType, 'content_length' => $contentLength];
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
+
+	/**
+	 * Función de autenticación y manejo del token
+	 */
+	function authenticateSICON()
+	{
+		$username = "drupalconvocatorias@scrd.gov.co";
+		$password = "wD#UcE%@SyvA";
+		$hours_of_renovation = 5; // numero de horas para el reinicio del token
+
+		date_default_timezone_set('UTC');
+		$file_items = file('token.txt');
+		$current_date = date('Y-m-d H:i:s');
+
+		if (abs(strtotime($current_date) - strtotime($file_items[1])) / (60 * 60) > $hours_of_renovation) {
+			if (function_exists('my_module_reponse')) {
+				my_module_reponse('DrupalWS/liberar_token', 'POST', "username=" . $username . "&password=" . $password, 2);
+				$response = my_module_reponse('DrupalWS/autenticacion_autorizacion', 'POST', "username=" . $username . "&password=" . $password, 2);
+				$result = json_decode($response['data']);
+				$file_items[0] = $result->respuesta;
+				$file_items[1] = $current_date;
+				$file = fopen("token.txt", "w");
+				for ($i = 0; $i < 2; $i++) {
+					fwrite($file, $file_items[$i] . "\n");
+				}
+				fclose($file);
+			}
+		}
+	}

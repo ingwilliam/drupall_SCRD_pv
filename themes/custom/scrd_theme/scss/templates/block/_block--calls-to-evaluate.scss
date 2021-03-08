@@ -1,0 +1,23 @@
+#block-views-block-calls-to-evaluate {
+  .calls-to-evaluate {
+    height: 426px;
+    @include media-breakpoint-down(md) {
+      height: auto;
+      img {
+        height: 174px;
+      }
+
+      a {
+        width: 100%;
+      }
+    }
+
+    &--right {
+      max-width: 570px;
+      margin: auto;
+      .title-responsive-48-36--sm {
+        line-height: 55px;
+      }
+    }
+  }
+}

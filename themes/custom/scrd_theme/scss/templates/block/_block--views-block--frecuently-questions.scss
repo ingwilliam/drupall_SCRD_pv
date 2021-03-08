@@ -1,0 +1,36 @@
+#block-views-block-frecuently-questions {
+  .view-content {
+    background-color: $color-primary-600;
+    border-radius: 5px;
+    padding: 0.5rem 0;
+  }
+
+  .views-field.views-field-title {
+    padding: 1rem 1.5rem;
+
+    span.field-content {
+      display: inline-block;
+      color: $color-primary-100;
+      font-weight: bold;
+      display: flex;
+
+      &::before {
+        content: "";
+        display: inline-table;
+        width: 19px;
+        height: 26px;
+        margin-right: 1rem;
+        background: url("../images/question.png") center/cover no-repeat;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  #block-views-block-frecuently-questions {
+    .q-title {
+      font-size: 36px !important;
+      line-height: 1.2 !important;
+    }
+  }
+}

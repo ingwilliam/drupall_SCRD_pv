@@ -1,0 +1,57 @@
+{#
+/**
+ * Pagina del detalle de una convocatoria
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+{{ attach_library('convocatorias/convocatorias_lib') }}
+
+{% set response = data.respuesta %}
+
+<div id="call-detail" class="container-fluid p-0">
+	{# description #}
+	{% include 'modules/custom/convocatorias/templates/call-detail-components/call-header.html.twig' %}
+	{# content #}
+	<div class="container-extra-large">
+		<div id="scroll-to-this"></div>
+		<div class="row pb-8">
+			<div class="col-12 col-xl-3">
+				<div id="sideMenuCallDetail" class="side-menu">
+						<div class="px-3 px-xl-0 pt-7 pb-4 pb-xl-0 pt-xl-4 side-menu__container">
+							{% include 'modules/custom/convocatorias/templates/call-detail-components/call-sidebar.html.twig' %}
+						</div>
+				</div>
+			</div>
+			<div class="col-12 offset-xl-1 col-xl-8">
+				<div class="d-flex d-xl-none justify-content-center">
+					<span id="openSideMenuCallDetail" class="filter-button text-center d-block px-3 py-1 radius-5 border-primary-500 filter-icon--after font-weight-bold f-18 mb-6">
+						DOCUMENTOS
+					</span>
+				</div>
+
+				<div id="call-detail-menu-tabContent" class="tab-content">
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-information.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-dates.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-justification.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-object.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-participant.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-documents.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-evaluation-criteria.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-duties-rights.html.twig' %}
+					
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-appendix.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-formats.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-resolutions.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-list.html.twig' %}
+					{% include 'modules/custom/convocatorias/templates/call-detail-components/tab-modifications.html.twig' %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{# banner #}
+	{% include 'modules/custom/convocatorias/templates/call-detail-components/call-banner.html.twig' %}
+</div>

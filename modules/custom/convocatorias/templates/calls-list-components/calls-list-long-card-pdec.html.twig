@@ -1,0 +1,126 @@
+{% macro entityTag(entity) %}
+	{% set class = entity == "IDARTES" ? "call-tag--idartes" : 
+								 entity == "IDPC" ? "call-tag--idpc" : 
+								 entity == "OFB" ? "call-tag--ofb" : 
+								 entity == "SCRD" ? "call-tag--scrd" : 
+								 entity == "FUGA" ? "call-tag--fuga" : 
+								 "call-tag--default" %}
+
+	<div class={{ class }}>
+		<span>{{ entity }}</span>
+	</div>
+{% endmacro %}
+
+{% macro statusTag(status) %}
+	{% set class = status == "Publicada" ? "call-tag--publicada" : 
+								 status == "Adjudicada" ? "call-tag--adjudicada" : 
+								 status == "Cancelada" ? "call-tag--cancelada" : 
+								 status == "Abierta" ? "call-tag--abierta" : 
+								 status == "Cerrada" ? "call-tag--cerrada" : 
+								 "call-tag--default" %}
+
+	<div class={{ class }}>
+		<span>Convocatoria <span class="text-lowercase">{{ status }}</span></span>
+	</div>
+{% endmacro %}
+
+
+{# Modal fechas #}
+<div class="modal fade" id="importantDates{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-body px-5 py-6">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span class="close-icon--28" aria-hidden="true"></span>
+				</button>
+				<p class="title-responsive-48-36--sm text-primary-500 font-weight-bold mb-6">Fechas importantes</p>
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead class="thead">
+							<tr>
+								<th scope="col">Evento</th>
+								<th scope="col">Fecha</th>
+								<th scope="col">Descripción</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for dates in item.cronograma %}
+								<tr>
+									<td>{{ dates.tipo_evento }}</td>
+									<td class="font-weight-semibold">{{ dates.fecha_inicio|date('d/m/y') }}</td>
+									<td>{{ dates.descripcion|raw }}</td>
+								</tr>    
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mb-3">
+	<div class="col">
+		<div class="card radius-5">
+			<div class="row no-gutters">
+				<div class="col">
+					<div class="px-3 py-4 p-md-5">
+						<div class="row no-gutters">
+							<div class="col-12 col-lg-8">
+								<div>
+									{{ _self.statusTag(item.estado) }}
+									&nbsp;
+									{{ _self.entityTag(item.entidad) }} 
+									&nbsp;
+									<div class="call-tag--year">{{ item.anio }}</div>
+								</div>
+								<div class="mt-4">
+									<p class="text-primary-800 f-18 font-weight-bold mb-1">{{ item.nombre }}</p>
+									<p class="f-14 text-primary-800 mb-0">{{ item.tipo_programa }}</p>
+								</div>
+							</div>
+							<div class="col-12 col-lg-4 mt-4 mt-lg-0">
+								<div class="d-flex justify-content-center">
+									<a href="" class="tertiary-button" data-toggle="modal" data-target="#importantDates{{ loop.index }}"><span class="calendar-icon--4-before">Fechas importantes</span></a>
+								</div>
+								<div class="d-flex justify-content-center mt-3 mt-lg-5">
+									<a href="/convocatorias/{{ item.id }}" class="secondary-button">Ver convocatoria</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row no-gutters">
+				<div class="col-12 bg-dark-100">
+					<div class="row no-gutters">
+						<div class="col-6 col-lg-3 p-2 bg-dark-200">
+							<p class="mb-2"><span class="f-12 text-dark-700 font-weight-bold list-icon">Categorías</span></p>
+							<select class="custom-select select--gray mr-sm-2 f-14 text-dark-700" id="nameSelect">
+								{% if (item.categoria|split('<br/><br/>'))|length == 1 %}
+									<option>Categoría única</option>
+								{% endif %}
+								{% for category in item.categoria|split('<br/><br/>') %}
+									<option>{{category}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="col-6 col-lg-3 p-2">
+							<p class="mb-2"><span class="f-12 text-dark-700 font-weight-bold brush-icon">Área</span></p>
+							<p class="text-dark-800 f-14 pl-0 pl-md-5 mb-0">{{ item.area }}</p>
+						</div>
+						<div class="col-6 col-lg-3 p-2">
+							<p class="mb-2"><span class="f-12 text-dark-700 font-weight-bold search-icon">Enfoque</span></p>
+							<p class="text-dark-800 f-14 pl-0 pl-md-5 mb-0">{{ item.enfoque }}</p>
+						</div>
+						<div class="col-6 col-lg-3 p-2">
+							<p class="mb-2"><span class="f-12 text-dark-700 font-weight-bold book-icon">Linea estratégica</span></p>
+							<p class="text-dark-800 f-14 pl-0 pl-md-5 mb-0">{{ item.linea_estrategica }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

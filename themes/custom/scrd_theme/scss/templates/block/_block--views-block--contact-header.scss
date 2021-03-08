@@ -1,0 +1,31 @@
+#block-views-block-contact-header {
+  .image-container {
+    img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: top;
+      @include media-breakpoint-down(sm) {
+        height: 86px;
+      }
+    }
+  }
+
+  .content-container {
+    max-width: 550px;
+    @include media-breakpoint-down(md) {
+      .manuals-help-arrow {
+        left: 50%;
+        img {
+          transform: translateX(-50%) !important;
+        }
+      }
+    }
+    .breadcrumb-header {
+      a:first-child {
+        font-weight: 700;
+        color: black;
+      }
+    }
+  }
+}

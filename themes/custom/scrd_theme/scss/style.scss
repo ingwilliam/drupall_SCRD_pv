@@ -1,0 +1,81 @@
+//@import 'custom/mixins/misc';
+//@import 'custom/misc';
+
+// Include bootstrap variables definitions overrides.
+@import "overrides/variables";
+
+// Include parent theme with all things Bootstrap for full override.
+// Relative path to this styles.scss file.
+// Example: @import "../../../../../themes/contrib/bootstrap4/scss/style";
+// @import "[DOCROOT]/themes/contrib/bootstrap4/scss/style";
+@import "../../../bootstrap4/scss/style";
+// OR to go back to Bootstrap 4.4.1
+//@import "[DOCROOT]/themes/contrib/bootstrap4/scss/style-4-4";
+
+// Include custom sub theme.
+@import "custom/variables";
+@import "custom/commons";
+@import "custom/icons";
+@import "custom/components";
+
+@import "./templates/block/block--scrd-theme-account-menu";
+@import "./templates/block/block--scrd-theme-main-menu";
+@import "./templates/block/block--scrd-theme-branding";
+@import "./templates/block/block--views-block--winner-experiences";
+@import "./templates/block/block--views-block--updates";
+@import "./templates/block/block--views-block--contact-list";
+@import "./templates/block/block--views-block--frecuently-questions";
+@import "./templates/block/block--views-block--carousel-main-programs";
+@import "./templates/block/block--views-block--events";
+@import "./templates/block/block--views-block--calendar";
+@import "./templates/block/block--views-block--featured-news";
+@import "./templates/block/block--footer";
+@import "./templates/block/block--views-block--header-winner-experiences";
+@import "./templates/block/block--views-block--header-events-agenda";
+@import "./templates/block/block--views-block--header-news";
+@import "./templates/block/block--views-block--juries-header";
+@import "./templates/block/block--views-block--important-documents-juries";
+@import "./templates/block/block--views-block--header-manuals-help";
+@import "./templates/block/block--views-block--informacion-banco-de-jurados";
+@import "./templates/block/block--calls-to-evaluate";
+@import "./templates/block/block--views-block--documents-and-manuals";
+@import "./templates/block/block--views-block--header-frequent-questions";
+@import "./templates/block/block--views-block--common-questions-document-section";
+@import "./templates/block/block--views-block--questions";
+@import "./templates/block/block--buscarconvocatoria";
+@import "./templates/block/block--views-block--header-calls-pdac";
+@import "./templates/block/block--stimulus-block";
+@import "./templates/block/block--header-closing-calls";
+@import "./templates/block/block--views-block--promoted-events";
+@import "./templates/block/block--data-numbers-content";
+@import "./templates/block/block--views-block--steps-to-be-jury";
+@import "./templates/block/block--identify-jury-profile";
+@import "./templates/block/block--views-block--contact-header";
+@import "./templates/block/block--404";
+@import "./templates/block/block--search-bar";
+@import "./templates/block/block--scrd-theme-content";
+@import "./templates/block/block--views-block--search-header";
+
+@import "./templates/navigation/menu--main";
+@import "./templates/navigation/menu--account";
+@import "./templates/navigation/breadcrumbs";
+
+@import "./templates/content/node--view--winner-experiences-view";
+@import "./templates/content/node--view--updates";
+@import "./templates/content/node--view--experience-seeker";
+@import "./templates/content/node--view--news-seeker";
+@import "./templates/content/node--noticia--full";
+@import "./templates/content/node--event--full";
+@import "./templates/content/node--experiencie--full";
+@import "./templates/content/node--view--promoted-events";
+@import "./templates/content/node--experience--full";
+@import "./templates/content/node--view--featured-news";
+
+@import "./partials/component-event";
+@import "./partials/no-results";
+
+@import "./templates/views/views-view--exprience-seeker";
+@import "./templates/views/views-view--related-news";
+@import "./templates/views/views-view--contact";
+
+@import "./templates/dataset/item-list";

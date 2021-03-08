@@ -1,0 +1,103 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template in this directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ *
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.nav_relevant: Items for the relevant and promotional content.
+ * - page.breadcrumb: Items for the breadcrumb region.
+ * - page.content: The main content of the current page before the complete area region.
+ * - page.contact: Contact content after the content second region.
+ * - page.questions: Questions next to the contact region.
+ * - page.footer: Items for the footer region.
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+
+<header style="background: #F4F3F6;">
+	<div class="bg-primary-500 py-1 position-fixed w-100" style="z-index:100">
+		<div class="px-3 px-sm-5 px-lg-7 px-xxl-9">
+			{{ page.header }}
+		</div>
+	</div>
+
+	<div style="margin-top: 70px"></div>
+	
+	{% if page.breadcrumb %}
+		<div class="container">
+			{{ page.breadcrumb }}
+		</div>
+	{% endif %}
+
+	{% if page.nav_relevant %}
+		<div class="container-fluid p-0">
+			{{ page.nav_relevant }}
+		</div>
+	{% endif %}
+</header>
+
+<main role="main">
+	<a id="main-content" tabindex="-1"></a>
+	{# link is in html.html.twig #}
+
+
+	<div class="container-fluid" style="background: #F4F3F6;">
+		<div class="row">
+			<div class="col-12 px-0">
+				{{ page.content }}
+			</div>
+		</div>
+	</div>
+
+	{% set contact_classes = (page.contact and page.questions) ? 'col-12 col-lg-8' : 'col-12' %}
+	{% set questions_classes = (page.contact and page.questions) ? 'col-12 col-lg-4 mt-6 mt-lg-0' : 'col-12' %}
+
+	{% if page.contact or page.questions %}
+		<div class="py-5 py-xl-9" style="background-color: #F6F8FF">
+			<div class="container">
+				<div class="row">
+					<div class="{{ contact_classes }}">
+						{{ page.contact }}
+					</div>
+				
+					<div class="{{ questions_classes }}">
+						{{ page.questions }}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+</main>
+
+{% if page.footer %}
+	<footer class="mt-auto bg-primary-500 pt-5 pb-0{{ footer_classes }}">
+		{{ page.footer }}
+	</footer>
+{% endif %}

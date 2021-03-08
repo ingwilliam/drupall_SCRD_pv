@@ -1,0 +1,19 @@
+.not-found {
+  &__container {
+    max-width: 750px;
+    img {
+      width: 525px;
+    }
+    .button-inicio {
+      padding: 12px 32px;
+      border-radius: 5px;
+      border: 2px solid white;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    a.text-entidad-IDARTES-500 {
+      text-decoration: underline !important;
+    }
+  }
+}

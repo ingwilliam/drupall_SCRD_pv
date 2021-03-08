@@ -1,0 +1,13 @@
+.sign-up {
+  padding: 8px 12px;
+  margin-left: 8px;
+  font-weight: bold !important;
+  color: $color-primary-900 !important;
+  background-color: $color-dark-100;
+  border-radius: 5px;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }
+}

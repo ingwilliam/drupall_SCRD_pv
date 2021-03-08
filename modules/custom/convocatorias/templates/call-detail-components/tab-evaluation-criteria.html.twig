@@ -1,0 +1,57 @@
+{#
+/**
+ * Tab criterios de evaluacion
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-evaluation" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-evaluation-tab"
+>
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Criterios de evaluación</p>
+	{% for item in response.criterios_evaluacion %}
+		<div class="table-responsive wider">
+			<span class="text-responsive-18-16--sm text-dark-900 mb-0 mt-5">{{ item.nombre|raw }}</span> 
+			<table class="table table-bordered mt-2">
+				<colgroup>
+					<col class="w-5">
+					<col class="w-80">
+					<col class="w-15">
+				</colgroup>
+			
+				<thead>
+					<tr>
+						<th scope="col">No.</th>
+						<th scope="col">Criterio</th>
+						<th scope="col">Puntaje</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for criterio in item.criterios %}
+						<tr>
+							<td class="f-18">{{ loop.index }}</td>
+							<td class="f-14 text-dark-900">{{ criterio.descripcion_criterio|raw }}</td>
+							<td class="f-14 text-dark-900">{{ criterio.puntaje_minimo }} a {{ criterio.puntaje_maximo }}</td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<td class="f-14 text-dark-900" colspan="3">{{ item.descripcion|raw }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{% endfor %}
+
+	{% if response.criterios_evaluacion|length == 0 %}
+		<div class="border-empty">
+			<img src="/{{directory}}/images/sin-informacion.png" alt="No hay elementos">
+			<p>No se encontró contenido en esta sección</p>
+		</div>
+	{% endif %}
+</div>

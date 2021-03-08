@@ -1,0 +1,1 @@
+{"version":3,"sources":["templates/block/block--views-block--search-header.scss"],"names":[],"mappings":"AAAA,eACE,YAAa","file":"block--views-block--search-header.css","sourcesContent":[".search-header {\n  height: 197px;\n}\n"]}

@@ -1,0 +1,9 @@
+convocatorias_lib:
+  version: 1.x
+  css:
+    theme:
+      css/style.css: {}
+  js:
+    js/main.js: {}
+  dependencies:
+    - core/jquery

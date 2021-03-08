@@ -1,0 +1,134 @@
+{#
+/**
+ * @file
+ * Menu lateral de la pagina de detalle de convocatoria
+ *	Contiene funcionalidad javascript ./lib/jquery.classes.js
+ */
+ #}
+
+<div id="call-sidebar" class="row no-gutters">
+	<div class="col-12">
+		<div class="d-flex justify-content-between mt-5 mt-xl-0">
+			<p class="text-uppercase text-primary-700 font-weight-semibold">Documentación de la convocatoria</p>
+			<span id="closeSideMenuCallDetail" class="close-cross d-xl-none"></span>
+		</div>
+		<div class="nav flex-column" id="call-detail-menu-tab" role="tablist" aria-orientation="vertical">
+			<a class="nav-link active" id="call-detail-menu-information-tab" data-toggle="pill" href="#call-detail-menu-information" role="tab" aria-controls="call-detail-menu-information" aria-selected="true">
+				<span class="info-detail">
+					Información básica
+				</span>
+			</a>
+			
+			<a class="nav-link" id="call-detail-menu-dates-tab" data-toggle="pill" href="#call-detail-menu-dates" role="tab" aria-controls="call-detail-menu-dates" aria-selected="false">
+				<span class="dates-detail">
+					Fechas importantes
+				</span>
+			</a>
+			
+			{% if response.informacion_basica.justificacion != null or response.informacion_basica.justificacion != "" %}
+				<a class="nav-link" id="call-detail-menu-justification-tab" data-toggle="pill" href="#call-detail-menu-justification" role="tab" aria-controls="call-detail-menu-justification" aria-selected="false">
+					<span class="justification-detail">
+						Justificación
+					</span>
+				</a>
+			{% endif %}
+			
+			<a class="nav-link" id="call-detail-menu-object-tab" data-toggle="pill" href="#call-detail-menu-object" role="tab" aria-controls="call-detail-menu-object" aria-selected="false">
+				<span class="object-detail">
+					Objeto
+				</span>
+			</a>
+			
+			<a class="py-1 px-3 down-arrow" data-toggle="collapse" href="#participantsCollapse" role="button" aria-expanded="false" aria-controls="participantsCollapse">
+				<span class="participant-detail"> 
+					Participantes 
+				</span>
+			</a>
+			<div id="call-detail-participants-submenu" class="submenu pl-6">
+				<div class="collapse multi-collapse" id="participantsCollapse">
+					<a class="nav-link submenu-link" id="call-detail-menu-participant-tab" data-toggle="pill" href="#call-detail-menu-participant" role="tab" aria-controls="call-detail-menu-participant" aria-selected="false">
+						Tipo de participante
+					</a>
+					<a class="nav-link submenu-link" id="call-detail-menu-unallowed-tab" data-toggle="pill" href="#call-detail-menu-participant" role="tab" aria-controls="call-detail-menu-participant" aria-selected="false">
+						Quiénes no pueden participar
+					</a>
+				</div>
+			</div>
+			
+			<a class="py-1 px-3 down-arrow" data-toggle="collapse" href="#documentsCollapse" role="button" aria-expanded="false" aria-controls="documentsCollapse">
+				<span class="docs-detail"> 
+					Documentos 
+				</span>
+			</a>
+			<div id="call-detail-documents-submenu" class="submenu pl-6">
+				<div class="collapse multi-collapse" id="documentsCollapse">
+					<a class="nav-link submenu-link" id="call-detail-menu-administrative-tab" data-toggle="pill" href="#call-detail-menu-documents" role="tab" aria-controls="call-detail-menu-documents" aria-selected="false">
+						Documentos administrativos
+					</a>
+					<a class="nav-link submenu-link" id="call-detail-menu-technical-tab" data-toggle="pill" href="#call-detail-menu-documents" role="tab" aria-controls="call-detail-menu-documents" aria-selected="false">
+						Documentos técnicos para evaluación
+					</a>
+				</div>
+			</div>
+			
+			<a class="nav-link" id="call-detail-menu-evaluation-tab" data-toggle="pill" href="#call-detail-menu-evaluation" role="tab" aria-controls="call-detail-menu-evaluation" aria-selected="false">
+				<span class="criteria-detail">
+					Criterios de evaluación
+				</span>
+			</a>
+		
+			<a class="py-1 px-3 down-arrow" data-toggle="collapse" href="#rightsDutiesCollapse" role="button" aria-expanded="false" aria-controls="rightsDutiesCollapse">
+				<span class="rights_duties-detail">
+					Derechos y deberes 
+				</span>
+			</a>
+			<div id="call-detail-rights-submenu" class="submenu pl-6">
+				<div class="collapse multi-collapse" id="rightsDutiesCollapse">
+					<a class="nav-link submenu-link" id="call-detail-menu-rights-tab" data-toggle="pill" href="#call-detail-menu-duties-rights" role="tab" aria-controls="call-detail-menu-duties-rights" aria-selected="false">
+						Derechos específicos de los ganadores
+					</a>
+					<a class="nav-link submenu-link" id="call-detail-menu-duties-tab" data-toggle="pill" href="#call-detail-menu-duties-rights" role="tab" aria-controls="call-detail-menu-duties-rights" aria-selected="false">
+						Deberes específicos de los ganadores
+					</a>
+				</div>
+			</div>
+
+			<div class="mt-6">
+				<div class="py-3 bg-primary-700 text-white">
+					<p class="mb-0 pl-5 font-weight-semibold">TENGA EN CUENTA</p>
+				</div>
+				<div id="call-detail-appendix-submenu" class="bg-dark-200 p-1">
+					<a class="nav-link submenu-link" id="call-detail-menu-appendix-tab" data-toggle="pill" href="#call-detail-menu-appendix" role="tab" aria-controls="call-detail-menu-appendix" aria-selected="false">
+						<span class="appends-detail">
+							Anexos
+						</span>
+					</a>
+				
+					<a class="nav-link submenu-link" id="call-detail-menu-formats-tab" data-toggle="pill" href="#call-detail-menu-formats" role="tab" aria-controls="call-detail-menu-formats" aria-selected="false">
+						<span class="formats-detail">
+							Formatos
+						</span>
+					</a>
+				
+					<a class="nav-link submenu-link" id="call-detail-menu-resolutions-tab" data-toggle="pill" href="#call-detail-menu-resolutions" role="tab" aria-controls="call-detail-menu-resolutions" aria-selected="false">
+						<span class="resolutions-detail">
+							Resoluciones
+						</span>
+					</a>
+				
+					<a class="nav-link submenu-link" id="call-detail-menu-list-tab" data-toggle="pill" href="#call-detail-menu-list" role="tab" aria-controls="call-detail-menu-list" aria-selected="false">
+						<span class="lists-detail">
+							Listados
+						</span>
+					</a>
+				
+					<a class="nav-link submenu-link" id="call-detail-menu-notice-tab" data-toggle="pill" href="#call-detail-menu-notice" role="tab" aria-controls="call-detail-menu-notice" aria-selected="false">
+						<span class="advice-detail">
+							Avisos modificatorios
+						</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

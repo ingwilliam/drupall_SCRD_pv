@@ -1,0 +1,15 @@
+#views-view--contact {
+  .image-container img {
+    width: 100%;
+    object-fit: cover;
+    height: 230px;
+  }
+
+  .item-list li {
+    margin: 0 !important;
+  }
+  a[href*="mailto:"] {
+    text-decoration: underline !important;
+    color: $color-primary-600;
+  }
+}

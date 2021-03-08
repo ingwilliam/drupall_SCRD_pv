@@ -1,0 +1,33 @@
+{
+  "name": "scrd_theme",
+  "version": "1.0.0",
+  "description": "SCRD subtheme configuration",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp watch",
+    "lint:sass": "sass-lint -c .sass-lint.yml --verbose",
+    "build:sass": "node-sass themes/custom/scrd_theme/scss/style.scss themes/custom/scrd_theme/css/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scrd"
+  ],
+  "author": "Lab101",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-cli": "^2.3.0",
+    "gulp-connect-php": "^1.0.3",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-livereload": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglifyjs": "^0.6.2",
+    "imagemin-pngquant": "^9.0.1",
+    "node-sass": "^5.0.0",
+    "sass-lint": "^1.13.1"
+  }
+}

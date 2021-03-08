@@ -1,0 +1,39 @@
+#block-views-block-informacion-banco-de-jurados {
+  #views-bootstrap-tab-views-bootstrap-informacion-banco-de-jurados-block-1 {
+    ul.nav-tabs {
+      border-bottom: none;
+      border-right: 1px solid #000000;
+      min-height: 351px;
+      @include media-breakpoint-down(sm) {
+        min-height: auto;
+        border-right: none;
+        border-bottom: auto;
+      }
+      li {
+        margin-bottom: 20px;
+        a {
+          color: $color-primary-900;
+          font-size: 18px;
+        }
+        a.active {
+          font-weight: bold;
+        }
+      }
+
+      //   li.active a {
+
+      //   }
+    }
+
+    .tab-pane.active {
+      p {
+        font-size: 18px;
+        color: $color-dark-900;
+        line-height: 28px;
+        @include media-breakpoint-down(sm) {
+          font-size: 14px
+        }
+      }
+    }
+  }
+}

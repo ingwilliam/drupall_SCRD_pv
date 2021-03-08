@@ -1,0 +1,75 @@
+{#
+/**
+ * Tab informacion basica
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade show active" 
+	id="call-detail-menu-information" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-information-tab"
+>
+
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Información básica</p>
+	<div class="text-dark-900 mt-5 text-responsive-18-16--sm">
+		<p class="mb-5">{{ response.informacion_basica.descripcion|raw }}</p>
+		<p><span class="font-weight-bold">Línea estratégica: </span> {{ response.informacion_basica.linea_estrategica|raw }}</p>
+		<p><span class="font-weight-bold">Área: </span> {{ response.informacion_basica.area|raw }}</p>
+		
+		{% for item in response.distribucion_estimulos %}
+			{% if response.distribucion_estimulos|length > 1 %}
+				<p class="mt-6"><span class="font-weight-bold">Categoria</span> {{ item.categoria }} </p>
+			{% endif %}
+
+			{% if item.numero_estimulos != null or item.numero_estimulos != 0 %}
+				<p><span class="font-weight-bold">Número de estímulos: </span>{{ item.numero_estimulos }}</p>
+			{% endif %}
+			<p><span class="font-weight-bold">Total de recursos: </span>{{ item.valor_total_estimulos }}</p>
+			<p><span class="font-weight-bold">Descripción general de los recursos a otorgar: </span>{{ item.descripcion_bolsa|raw }}</p>
+		{% endfor %}
+
+		{% if response.informacion_categorias %}
+			{% if response.informacion_basica.tipo_programa == "Programa Distrital de Apoyos Concertados" %}
+				<p><span class="font-weight-bold">Lineas de participación: </span></p>
+			{% else %}
+				<p><span class="font-weight-bold">Categorias: </span></p>
+			{% endif %}
+			
+			<div class="table-responsive">
+				<table class="table table-bordered mt-2">
+					<colgroup>
+						<col class="w-5">
+						<col class="w-25">
+						<col class="w-70">
+					</colgroup>
+				
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							{% if response.informacion_basica.tipo_programa == "Programa Distrital de Apoyos Concertados" %}
+								<th scope="col">Linea</th>
+							{% else %}
+								<th scope="col">Categoria</th>
+							{% endif %}
+							<th scope="col">Descripción</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in response.informacion_categorias %}
+							<tr>
+								<td class="f-18">{{ loop.index }}</td>
+								<td class="f-14 text-dark-900">{{ item.nombre|raw }}</td>
+								<td class="f-14 text-dark-900">{{ item.descripcion|raw }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+	</div>
+</div>

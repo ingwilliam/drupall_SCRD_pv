@@ -1,0 +1,249 @@
+// Common styles for all pages
+// Basic definitions of the entire project
+
+// ELEMENTS
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Open Sans", sans-serif !important;
+  background-color: white !important;
+  box-sizing: border-box;
+  color: $color-primary-500 !important;
+  overflow-x: hidden;
+  min-width: 324px;
+}
+
+a {
+  text-decoration: none !important;
+
+  &:hover {
+    text-decoration: none !important;
+    cursor: pointer;
+  }
+}
+
+ul {
+  list-style-type: none;
+  // margin: 0 !important;
+}
+
+.container-extra-large {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 15px;
+
+  @include media-breakpoint-only(xl) {
+    max-width: 1200px;
+  }
+  @include media-breakpoint-only(lg) {
+    max-width: 960px;
+  }
+  @include media-breakpoint-only(md) {
+    max-width: 720px;
+  }
+  @include media-breakpoint-only(sm) {
+    max-width: 540px;
+  }
+  @include media-breakpoint-only(xs) {
+    max-width: 100%;
+  }
+}
+
+.w-xl-100 {
+  @include media-breakpoint-up(xl) {
+    width: 100% !important;
+  }
+}
+
+.ml-n200 {
+  @include media-breakpoint-down(lg) {
+    margin-left: -185px;
+  }
+}
+
+.f-12 {
+  font-size: 12px !important;
+}
+
+.f-14 {
+  font-size: 14px !important;
+}
+
+.f-15 {
+  font-size: 15px !important;
+}
+
+.f-16 {
+  font-size: 16px !important;
+}
+
+.f-18 {
+  font-size: 18px !important;
+}
+
+.f-20 {
+  font-size: 20px !important;
+}
+
+.f-24 {
+  font-size: 24px !important;
+}
+
+.f-30 {
+  font-size: 30px !important;
+}
+
+.f-36 {
+  font-size: 36px !important;
+}
+
+.f-48 {
+  font-size: 48px !important;
+}
+
+.lh-18 {
+  line-height: 18px !important;
+}
+
+.lh-24 {
+  line-height: 24px !important;
+}
+
+.lh-32 {
+  line-height: 32px !important;
+}
+
+.lh-36 {
+  line-height: 32px !important;
+}
+
+.lh-44 {
+  line-height: 44px !important;
+}
+
+.lh-55 {
+  line-height: 55px !important;
+}
+
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+.opacity-1 {
+  opacity: 1 !important;
+}
+
+.font-weight-semibold {
+  font-weight: 600;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.radius-5 {
+  border-radius: 5px;
+}
+
+.overflow-break {
+  overflow-wrap: break-word;
+}
+
+.custom-select {
+  background: url("../images/dropdown-arrow.png") no-repeat right 0.75rem
+    center/8.5px 5.5px !important;
+}
+
+a.clickeable-link {
+  &:hover {
+    color: $color-primary-500 !important;
+    text-decoration: underline !important;
+  }
+}
+
+@keyframes soft-bouncing {
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+// TITULOS Y TESTOS RESPONSIVE
+//
+//
+//
+
+.title-responsive-48-36--sm {
+  // title-responsive-lg
+  font-size: 48px;
+  line-height: 55px;
+  @include media-breakpoint-down(sm) {
+    font-size: 36px;
+  }
+}
+
+.title-responsive-36-24--sm {
+  //title-responsive
+  font-size: 36px;
+  line-height: 46px;
+  @include media-breakpoint-down(sm) {
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
+
+.title-responsive-24-16--sm {
+  //title-responsive-sm
+  font-size: 24px;
+  @include media-breakpoint-down(sm) {
+    font-size: 16px;
+  }
+}
+
+.title-responsive-20-16--sm {
+  //title-responsive-sm
+  font-size: 20px;
+  @include media-breakpoint-down(sm) {
+    font-size: 16px;
+  }
+}
+
+.text-responsive-18-16--sm {
+  font-size: 18px;
+  @include media-breakpoint-down(sm) {
+    font-size: 16px;
+  }
+}
+
+.text-responsive-16-14--lg {
+  font-size: 16px;
+  @include media-breakpoint-down(lg) {
+    font-size: 14px;
+  }
+}
+
+// scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-dark-700;
+  border-radius: 5px;
+}

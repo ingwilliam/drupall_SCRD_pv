@@ -1,0 +1,35 @@
+.node-featured-news {
+  .content {
+    height: 170px;
+  }
+
+  .link {
+    color: #ffcc33;
+
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .node-featured-news {
+    .border-right {
+      border: none !important;
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .node-featured-news {
+    padding-left: 2%;
+
+    .content {
+      height: 150px;
+    }
+
+    .link span {
+      font-size: 16px !important;
+    }
+  }
+}

@@ -1,0 +1,190 @@
+{#
+/**
+ * Tab documentos administrativos
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-documents" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-administrative-tab call-detail-menu-technical-tab"
+>
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Documentos administrativos</p>
+	
+	{% set break = false %}
+	{% for outter in response.documentos_administrativos if not break%}
+	
+		{% if outter.administrativos == null %}
+			<div class="table-responsive wider">
+				<table class="table table-bordered mt-2">
+					<colgroup>
+						<col class="w-5">
+						<col class="w-35">
+						<col class="w-40">
+						<col class="w-10">
+						<col class="w-10">
+					</colgroup>
+				
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">Requisito</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Tipos de archivos permitidos</th>
+							<th scope="col">Tamaño máximo permitido</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in response.documentos_administrativos %}
+							<tr>
+								<td class="f-18">{{ loop.index }}</td>
+								<td class="f-14 text-dark-900">{{ item.requisito|raw }}</td>
+								<td class="f-14 text-dark-900">{{ item.descripcion|raw }}</td>
+								<td class="f-14 text-dark-900">
+									{% for file in item.archivos_permitidos %}
+										{{ file }} <br>
+									{% endfor %}
+								</td>
+								<td class="f-14 text-dark-900">{{ item.tamano_permitido }} MB</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% set break = true %}
+		
+		{% else %}
+			<p class="text-dark-900"><span class="font-weight-bold">Categoria: </span>  {{ outter.categoria|raw }}</p>
+
+			<div class="table-responsive wider mb-4">
+				<table class="table table-bordered mt-2">
+					<colgroup>
+						<col class="w-5">
+						<col class="w-35">
+						<col class="w-40">
+						<col class="w-10">
+						<col class="w-10">
+					</colgroup>
+				
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">Requisito</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Tipos de archivos permitidos</th>
+							<th scope="col">Tamaño máximo permitido</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in outter.administrativos %}
+							<tr>
+								<td class="f-18">{{ loop.index }}</td>
+								<td class="f-14 text-dark-900">{{ item.requisito|raw }}</td>
+								<td class="f-14 text-dark-900">{{ item.descripcion|raw }}</td>
+								<td class="f-14 text-dark-900">
+									{% for file in item.archivos_permitidos %}
+										{{ file }} <br>
+									{% endfor %}
+								</td>
+								<td class="f-14 text-dark-900">{{ item.tamano_permitido }} MB</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+			
+	{% endfor %}
+
+	<div id="scroll-to-this-documents"></div>
+
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center mt-8">Documentos técnicos para evaluación</p>
+
+	{% set break = false %}
+	{% for outter in response.documentos_tecnicos if not break%}
+	
+		{% if outter.administrativos == null %}
+			<div class="table-responsive wider">
+				<table class="table table-bordered mt-2">
+					<colgroup>
+						<col class="w-5">
+						<col class="w-5">
+						<col class="w-80">
+						<col class="w-5">
+						<col class="w-5">
+					</colgroup>
+				
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">Requisito</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Tipos de archivos permitidos</th>
+							<th scope="col">Tamaño máximo permitido</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in response.documentos_tecnicos %}
+							<tr>
+								<td class="f-18">{{ loop.index }}</td>
+								<td class="f-14 text-dark-900">{{ item.requisito|raw }}</td>
+								<td class="f-14 text-dark-900">{{ item.descripcion|raw }}</td>
+								<td class="f-14 text-dark-900">
+									{% for file in item.archivos_permitidos %}
+										{{ file }} <br>
+									{% endfor %}</td>
+								<td class="f-14 text-dark-900">{{ item.tamano_permitido }} MB</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% set break = true %}
+		
+		{% else %}
+			<p class="text-dark-900"><span class="font-weight-bold">Categoria: </span>  {{ outter.categoria|raw }}</p>
+
+			<div class="table-responsive wider mb-4">
+				<table class="table table-bordered mt-2">
+					<colgroup>
+						<col class="w-5">
+						<col class="w-5">
+						<col class="w-80">
+						<col class="w-5">
+						<col class="w-5">
+					</colgroup>
+				
+					<thead>
+						<tr>
+							<th scope="col">No.</th>
+							<th scope="col">Requisito</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Tipos de archivos permitidos</th>
+							<th scope="col">Tamaño máximo permitido</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in outter.administrativos %}
+							<tr>
+								<td class="f-18">{{ loop.index }}</td>
+								<td class="f-14 text-dark-900">{{ item.requisito|raw }}</td>
+								<td class="f-14 text-dark-900">{{ item.descripcion|raw }}</td>
+								<td class="f-14 text-dark-900">
+									{% for file in item.archivos_permitidos %}
+										{{ file }} <br>
+									{% endfor %}</td>
+								<td class="f-14 text-dark-900">{{ item.tamano_permitido }} MB</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+			
+	{% endfor %}
+</div>

@@ -1,0 +1,27 @@
+#block-views-block-juries-header {
+  .juries-header {
+    height: 585px;
+
+    @include media-breakpoint-down(md) {
+      height: auto;
+      .image-full-content {
+        img {
+          height: 119px;
+        }
+      }
+    }
+
+    &__container {
+      max-width: 545px;
+      margin: auto;
+
+      @include media-breakpoint-down(md) {
+        padding: 16px;
+      }
+    }
+  }
+
+  a.tertiary-button {
+    padding: 0px 10px;
+  }
+}

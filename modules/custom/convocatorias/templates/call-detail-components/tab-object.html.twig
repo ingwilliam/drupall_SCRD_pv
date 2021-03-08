@@ -1,0 +1,30 @@
+{#
+/**
+ * Tab objeto
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-object" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-object-tab"
+>	
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Objeto</p>
+	<div class="text-dark-900 mt-5 f-18">
+		<span class="mb-5 text-responsive-18-16--sm">
+			{{ response.objeto|raw }}
+		</span>
+
+		{% if response.objeto == "" %}
+			<div class="border-empty">
+				<img src="/{{directory}}/images/sin-informacion.png" alt="No hay elementos">
+				<p>No se encontró contenido en esta sección</p>
+			</div>
+		{% endif %}
+	</div>
+</div>

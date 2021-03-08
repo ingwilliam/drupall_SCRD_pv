@@ -1,0 +1,16 @@
+.experience-header {
+  height: 512px;
+  &__right {
+    &--title {
+      height: 143px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+
+      @include media-breakpoint-down(sm) {
+        -webkit-line-clamp: 4;
+      }
+    }
+  }
+}

@@ -1,0 +1,375 @@
+{#
+/**
+ * Pagina de convocatorias pdec.
+ *
+ * - data:  Response of the request
+ * - queryParams: query strings in url
+ */   
+#}
+{{ attach_library('convocatorias/convocatorias_lib') }}
+
+{% set entities = [
+	{'name': 'Secretaría de Cultura, Recreación y Deporte', 'short_name':'SCRD', 'id': '2'}, 
+	{'name': 'Institulo Distrital de las Artes', 'short_name':'IDARTES', 'id': '6'},
+	{'name': 'Orquesta Filarmónica de Bogotá', 'short_name':'OFB', 'id': '5'},
+	{'name': 'Instituto Distrital de Patrimonio Cultural', 'short_name':'IDPC', 'id': '4'},
+	{'name': 'Fundación Gilberto Alzate Avendaño', 'short_name':'FUGA', 'id': '7'}
+] %}
+
+{% set state = [
+	{'name': 'Convocatorias abiertas', 'id': '1'}, 
+	{'name': 'Convocatorias cerradas', 'id': '2'},
+	{'name': 'Convocatorias publicadas', 'id': '5'},
+	{'name': 'Convocatorias canceladas', 'id': '32'},
+	{'name': 'Convocatorias adjudicadas', 'id': '6'}
+] %}
+
+{% set profile = [
+	{'name': 'Soy persona natural', 'id': '1'}, 
+	{'name': 'Soy persona jurídica', 'id': '2'},
+	{'name': 'Soy agrupación', 'id': '3'},
+	{'name': 'Soy jurado', 'id': '4'}
+] %}
+
+{% set area = [
+	{'name': 'Arte dramático', 'id': '1'}, 
+	{'name': 'Artes plásticas y visuales', 'id': '2'},
+	{'name': 'Artes audiovisuales', 'id': '3'},
+	{'name': 'Danza ', 'id': '4'},
+	{'name': 'Literatura', 'id': '6'},
+	{'name': 'Música', 'id': '7'},
+	{'name': 'Patrimonio cultural', 'id': '8'},
+	{'name': 'Interdisciplinar / transdisciplinar', 'id': '5'}
+] %}
+
+{% set approach = [
+	{'name': 'Diciplinar', 'id': '1'}, 
+	{'name': 'Estratégico ', 'id': '2'},
+	{'name': 'Poblacional', 'id': '3'},
+	{'name': 'Territorial', 'id': '4'},
+	{'name': 'Multidisciplinar', 'id': '5'},
+	{'name': 'No aplica', 'id': '6'}
+] %}
+
+{% set line = [
+	{'name': 'Agenciamiento', 'id': '1'}, 
+	{'name': 'Apropiación', 'id': '2'},
+	{'name': 'Circulación', 'id': '3'},
+	{'name': 'Creación ', 'id': '4'},
+	{'name': 'Cultura ciudadana para la convivencia', 'id': '5'},
+	{'name': 'Emprendimiento ', 'id': '6'},
+	{'name': 'Formación ', 'id': '7'},
+	{'name': 'Investigación', 'id': '8'},
+	{'name': 'Protección y salvaguardia', 'id': '9'},
+	{'name': 'No aplica', 'id': '10'}
+] %}
+
+{% set modality = [
+	{'name': 'Beca', 'id': '1'}, 
+	{'name': 'Jurados', 'id': '2'},
+	{'name': 'Pasantías ', 'id': '3'},
+	{'name': 'Premio', 'id': '4'},
+	{'name': 'Residencia', 'id': '5'},
+	{'name': 'LEP', 'id': '6'},
+	{'name': 'Cerrada', 'id': '7'},
+	{'name': 'Salas concertadas', 'id': '8'},
+	{'name': 'Abierta ', 'id': '9'},
+] %}
+
+<div class="container calls-list">
+	<div class="row my-6">
+		<div class="col-12 col-xl-3 calls-list__filters">
+
+			{# Row con el boton filtrar y el ordenamiento por fecha para el responsive #}
+			<div class="row d-xl-none">
+				<div class="col-12">
+					<div class="d-flex h-100 align-items-center justify-content-start">
+						<span id="openSideMenuCallsPdec" class="text-center d-block px-3 py-1 radius-5 border-primary-500 filter-icon--after font-weight-bold f-18 " style="min-width: 140px; border: 2px solid; cursor: pointer" >
+							filtrar
+						</span>
+						<div class="ml-2 d-flex flex-wrap align-items-end justify-content-center">
+							<span class="text-dark-700 f-14 mr-3 mb-1">Ordenar por: </span>
+							<select class="custom-select select--gray mr-sm-2 f-14 text-dark-700 w-auto" id="callOrderDateSelect1">
+								<option value="0">Fecha</option>
+								<option value="true" {{ queryParams.orden_fecha == "true" ? attributes.setAttribute('selected', '') : '' }}>Más recientes</option>
+								<option value="false" {{ queryParams.orden_fecha == "false" ? attributes.setAttribute('selected', '') : '' }}>Más antiguas</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{# Bloque de filtros aplicados#}
+			<div class="py-7 py-xl-0">
+				<p class="text-primary-700 font-weight-bold">FILTROS APLICADOS: </p>
+				
+				<p class="text-dark-800 f-14 mt-1">{{ data.total_registros }} resultados</p>
+				
+				<div class="d-flex flex-wrap mt-4" id="tagCallsGroup">
+					{% include 'modules/custom/convocatorias/templates/calls-list-components/calls-tags.html.twig' %}
+				</div> 
+			
+				<div class="d-flex justify-content-center">
+					<a href="/convocatorias" class="tertiary-button mt-3">Limpiar todos los filtros</a>
+				</div>
+			</div>
+
+			{# Bloque de filtros #}
+			<div id="sideMenuCallsPdec" class="side-menu">
+				<div class="px-3 px-xl-0 py-4 py-xl-0 mt-8 mt-xl-0 side-menu__container">
+					
+					<div class="d-flex justify-content-between align-items-center d-xl-none mb-3">
+						<p class="d-xl-none text-primary-700 f-24 font-weight-bold mb-0">Filtros</p>
+						<span id="closeSideMenuCallsPdec" class="close-cross d-xl-none"></span>
+					</div>
+
+					<div class="line-space mt-0 mt-xl-6"></div>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						TIPO DE PROGRAMA: 
+						<span class="tooltip-icon--purple tip"><span> Participar de las convocatorias en uno de los dos programas de fomento para la cultura</span></span>
+					</p>
+
+					<div class="mt-3 pl-2">
+						<div class="container__radio text-dark-800 f-14 mb-2">
+							<input type="radio" name="program" value="pdec" id="pdec" checked>
+							<label for="pdec">
+								Programa Distrital de Estímulos para la Cultura
+							</label>
+							<span class="checkmark__radio"></span>
+						</div>
+						<div class="container__radio f-14 mb-2">
+							<input type="radio" name="program" value="pdac" id="pdac" >
+							<label for="pdac">
+								<a href="/convocatorias/pdac" class="text-dark-800 d-inline-block">
+									Programa Distrital de Apoyos Concertados
+									<span class="checkmark__radio"></span>
+								</a>
+							</label>
+						</div>
+					</div>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						ENTIDAD:
+						<span class="tooltip-icon--purple tip">
+							<span>
+								El sector cultura, recreación y deporte está conformado por un grupo de cinco entidades públicas adscritas y una vinculada que buscan que la cultura, el arte, el patrimonio, el deporte, la recreación y la actividad física estén en el centro del pleno desarrollo humano de los ciudadanos y las ciudadanas de Bogotá.
+							</span>
+						</span>
+					</p>
+
+					<div class="mt-3 pl-3" id="entitesGroup">
+						{% for item in entities %}
+							<label class="container__checkbox text-dark-800 f-14 mb-3" for="entity-{{ item.id }}">
+								{{item.name}}
+								<input type="checkbox" id="entity-{{ item.id }}" class="d-none mr-3" {{ item.id in queryParams.entidad ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</label>
+						{% endfor %}
+					</div>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						ESTADO:
+						<span class="tooltip-icon--purple tip">
+							<span>
+								<span class="font-weight-bold">Convocatorias</span> <br>
+								<span class="font-weight-bold">-	Abiertas:</span> Convocatorias en las que puede participar la ciudadanía<br>
+								<span class="font-weight-bold">-	Cerradas:</span> Cuando la convocatoria pasa su fecha de cierre <br>
+								<span class="font-weight-bold">-	Canceladas:</span> Son convocatorias que se han detenido en el proceso por diferentes razones<br>
+								<span class="font-weight-bold">-	Adjudicadas:</span> Convocatorias que ya recibieron los recursos para su ejecución<br>
+								<span class="font-weight-bold">-	Publicadas:</span> Hace referencia al momento en el que se publica una convocatoria y los términos se hacen públicos
+							</span>
+						</span>
+					</p>
+
+					<div class="mt-3 pl-3" id="stateGroup">
+						{% for item in state %}
+							<label class="container__checkbox text-dark-800 f-14 mb-3" for="state-{{item.id}}">
+								{{item.name}}
+								<input type="checkbox" id="state-{{item.id}}" class="d-none mr-3" {{ item.id in queryParams.estado ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</label>
+						{% endfor %}
+					</div>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						PERFIL:
+						<span class="tooltip-icon--purple tip">
+							<span>
+								<span class="font-weight-bold">- Persona natural:</span> Ciudadanos(as) colombianos(as) y/o extranjeros(as), mayores de 18 años, que de manera individual presentan una propuesta. <br>
+								<span class="font-weight-bold">- Persona jurídica:</span> Sujeto de derecho debidamente constituido en cualquiera de los tipos o modalidades autorizadas por la Ley <br>
+								<span class="font-weight-bold">- Agrupación:</span> Conjunto de personas mayores de 18 años, que presentan una propuesta en la que participan activamente en su creación o ejecución. <br>
+								<span class="font-weight-bold">- Jurados:</span> Expertos responsables de la evaluación de las propuestas participantes en las diferentes convocatorias
+							</span>
+						</span>
+					</p>
+
+					<div class="mt-3 pl-3" id="profileGroup">
+						{% for item in profile %}
+							<label class="container__checkbox text-dark-800 f-14 mb-3" for="profile-{{item.id}}">
+									{{item.name}}
+								<input type="checkbox" id="profile-{{item.id}}" class="d-none mr-3" {{ item.id in queryParams.perfil ? attributes.setAttribute('checked', '') : '' }}>
+								<span class="checkmark__checkbox"></span>
+							</label>
+						{% endfor %}
+					</div>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						AÑO: 
+						<span class="tooltip-icon--purple tip">
+							<span>
+								Selecciona el año de las convocatorias que deseas consultar
+							</span>
+						</span>
+					</p>
+
+					<select class="custom-select select--gray mr-sm-2" id="callYearSelect">
+						<option value="0">Todos</option>
+						{% for i in range(0, 5) %}
+							<option value={{('now' | date('Y')) - i}} {{ queryParams.anio == (('now' | date('Y')) - i) ? attributes.setAttribute('selected', '') : '' }}>
+								{{('now' | date('Y')) - i}}
+							</option>
+						{% endfor %}
+					</select>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						ÁREA: 
+						<span class="tooltip-icon--purple tip">
+							<span>
+								La oferta de convocatorias del PDE se enmarca en un conjunto de áreas que obedecen a los enfoques misionales de las entidades que conforman el Programa
+							</span>
+						</span>
+					</p>
+
+					<select class="custom-select select--gray mr-sm-2" id="callAreaSelect">
+						<option value="0">Todas</option>
+						{% for item in area %}
+							<option value={{item.id}} {{ item.id == queryParams.area ? attributes.setAttribute('selected', '') : '' }}>
+								{{item.name}}
+							</option>
+						{% endfor %}
+					</select>
+
+					<p class="text-primary-700 font-weight-bold mt-5">
+						ENFOQUE: 
+						<span class="tooltip-icon--purple tip">
+							<span>
+								<span class="font-weight-bold">- Disciplinar:</span> Busca fomentar el desarrollo de procesos de formación, investigación, creación y circulación de una disciplina artística. <br>
+								<span class="font-weight-bold">- Estratégico:</span> Responde a líneas de política cultural contenidas en el Plan Distrital de Desarrollo <br>
+								<span class="font-weight-bold">- Poblacional:</span> Relaciones entre la dinámica demográfica y los aspectos ambientales, sociales y económicos que son responsabilidad del Distrito en función de las necesidades y costumbres de los ciudadanos y ciudadanas <br>
+								<span class="font-weight-bold">- Territorial:</span> Considera las necesidades e intereses de los ciudadanos y ciudadanas en los diferentes territorios de la ciudad, buscando fortalecer la articulación sectorial.
+							</span>
+						</span>
+					</p>
+
+					<select class="custom-select select--gray mr-sm-2" id="callApproachSelect">
+						<option value="0">Todos</option>
+						{% for item in approach %}
+							<option value={{item.id}} {{ item.id == queryParams.enfoque ? attributes.setAttribute('selected', '') : '' }}>
+								{{item.name}}
+							</option>
+						{% endfor %}
+					</select>
+					
+					<p class="text-primary-700 font-weight-bold mt-5">
+						LÍNEA ESTRATÉGICA: 
+						<span class="tooltip-icon--purple tip">
+							<span>
+								<span class="font-weight-bold">- Agenciamiento:</span> Acciones que promueven la realización y condiciones efectivas para la práctica cultural. <br>
+								<span class="font-weight-bold">- Apropiación:</span> Sensibilización, uso y transformación de bienes, procesos culturales, patrimoniales y artísticos que contribuyen a la construcción de identidades e imaginarios. <br>
+								<span class="font-weight-bold">- Circulación:</span> Prácticas que ponen en escena pública los procesos y proyectos del campo artístico, bienes y manifestaciones. <br>
+								<span class="font-weight-bold">- Cultura ciudadana para la convivencia:</span> Iniciativas que aborden prácticas y actitudes que afectan las relaciones de la ciudadanía con su entorno <br>
+								<span class="font-weight-bold">- Creación:</span> Iniciativas de diseño, innovación y realización de procesos y productos artísticos. <br>
+								<span class="font-weight-bold">- Emprendimiento:</span> Iniciativas orientadas al desarrollo de bienes y servicios artísticos y culturales, sustentadas en prácticas económicas a través de modelos empresariales. <br>
+								<span class="font-weight-bold">- Formación:</span> Prácticas mediante las cuales se busca promover el desarrollo y profesionalización de los agentes del sector cultural y artístico. <br>
+								<span class="font-weight-bold">- Investigación:</span> Actividades de producción de conocimiento sobre el arte, el patrimonio y la cultura. <br>
+								<span class="font-weight-bold">- Protección y salvaguardia:</span> Acciones que promueven las condiciones para el uso y disfrute del patrimonio cultural material, inmaterial y natural por la ciudadanía.
+							</span>
+						</span>
+					</p>
+
+					<select class="custom-select select--gray mr-sm-2" id="callStrategicLineSelect">
+						<option value="0">Todas</option>
+						{% for item in line %}
+							<option value={{item.id}} {{ item.id == queryParams.linea_estrategica ? attributes.setAttribute('selected', '') : '' }}>
+								{{item.name}}
+							</option>
+						{% endfor %}
+					</select>
+					
+					<p class="text-primary-700 font-weight-bold mt-5">
+						MODALIDAD: 
+						<span class="tooltip-icon--purple tip">
+							<span>
+								<span class="font-weight-bold">- Beca:</span> Estímulo que se otorga para la puesta en marcha, el fortalecimiento o la finalización de un proyecto específico. <br>
+								<span class="font-weight-bold">- Pasantía:</span> Estímulo que se otorga para adelantar procesos de formación tendientes a la cualificación de conocimientos, saberes y experiencias. <br>
+								<span class="font-weight-bold">- Premio:</span> Estímulo que se otorga a propuestas meritorias ya culminadas, inéditas o conocidas, o a la trayectoria de un agente del sector. <br>
+								<span class="font-weight-bold">- Residencia:</span> Estímulo que se otorga para el desarrollo de una propuesta artística, patrimonial o cultural en un espacio especializado para tal fin.  <br>
+								<span class="font-weight-bold">- Jurados:</span> Estímulo que se otorga a los expertos responsables de la evaluación de las propuestas participantes en las convocatorias que oferta el programa.
+							</span>
+						</span>
+					</p>
+
+					<select class="custom-select select--gray mr-sm-2" id="callModalityLineSelect">
+						<option value="0">Todas</option>
+						{% for item in modality %}
+							<option value={{item.id}} {{ item.id == queryParams.modalidad ? attributes.setAttribute('selected', '') : '' }}>
+								{{item.name}}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-12 col-xl-9 calls-list__content">
+
+			{# Row con el ordenamiento por fecha para el desktop #}
+			<div class="row d-none d-xl-flex">
+				<div class="col">
+					<div class="d-flex justify-content-between">
+						<div class="d-flex align-items-center">
+							<span class="text-dark-700 f-14 mr-3">Ordenar por: </span>
+							<select class="custom-select select--gray mr-sm-2 f-14 text-dark-700 w-auto" id="callOrderDateSelect2">
+								<option value="0">Fecha</option>
+								<option value="true" {{ queryParams.orden_fecha == "true" ? attributes.setAttribute('selected', '') : '' }}>Más recientes</option>
+								<option value="false" {{ queryParams.orden_fecha == "false" ? attributes.setAttribute('selected', '') : '' }}>Más antiguas</option>
+							</select>
+						</div>
+						<div class="d-flex align-items-center">
+							<a id="SquareDisplay" href=""><span class="mr-1 {{ queryParams.display == "short" ? "square-display-icon--active" : "square-display-icon" }}"></span></a>
+							<a id="RowsDisplay" href=""><span class="{{ queryParams.display == "short" ? "rows-display-icon--active" : "rows-display-icon" }}"></span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			{# Fichas #}
+			
+			<div class="row mt-2">
+				{% if queryParams.display != "short" %}
+					<div class="col-12">
+						{% for item in data.respuesta %}
+							{% include 'modules/custom/convocatorias/templates/calls-list-components/calls-list-long-card-pdec.html.twig' %}
+						{% endfor %}
+					</div>
+				{% else %}
+					{% for item in data.respuesta %}
+							<div class="col-12 col-lg-6">
+								{% include 'modules/custom/convocatorias/templates/calls-list-components/calls-list-short-card-pdec.html.twig' %}
+							</div>
+						{% endfor %}
+				{% endif %}
+				
+				{% if data.total_registros == 0 %}
+					<div class="col-12">
+						{% include 'modules/custom/convocatorias/templates/calls-list-components/calls-list-empty.html.twig' %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	{% include 'modules/custom/convocatorias/templates/calls-list-components/calls-pager.html.twig' %}
+</div>

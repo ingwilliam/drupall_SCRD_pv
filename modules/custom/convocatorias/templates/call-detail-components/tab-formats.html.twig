@@ -1,0 +1,63 @@
+{#
+/**
+ * Tab formatos
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-formats" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-formats-tab"
+>
+	<div class="table-responsive wider">
+	<p class="text-primary-600 font-weight-bold title-responsive-48-36--sm text-center">Formatos</p>
+		<table class="table table-bordered mt-5">
+			<colgroup>
+				<col class="w-5">
+				<col class="w-35">
+				<col class="w-60">
+			</colgroup>
+    
+			<thead>
+				<tr>
+					<th scope="col" class="f-14">No.</th>
+					<th scope="col" class="f-14">Documento</th>
+					<th scope="col" class="f-14">Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in response.formatos %}
+					<tr>
+						<td class="text-dark-900">{{ loop.index }}</td>
+						<td class="f-14">
+							<a href="javascript: void(0)" data-document="{{ item.id_alfresco }}" title="{{ item.nombre }}"><u>{{ item.nombre }}</u></a>
+							<br>
+							<div class="pt-1">
+								<p class="text-dark-800 d-inline">(archivo Word o PDF)</p> &nbsp;
+								<div class="call-tag-pdf">
+									<span></span>
+								</div> &nbsp;
+								<div class="call-tag-word">
+									<span></span>
+								</div>
+							</div>
+						</td>
+						<td class="text-dark-900 f-14">{{ item.descripcion|raw }}</td>
+					</tr>
+				{% endfor %}
+
+				{% if response.formatos|length == 0 %}
+					<div class="border-empty">
+						<img src="/{{directory}}/images/sin-informacion.png" alt="No hay elementos">
+						<p>No se encontró contenido en esta sección</p>
+					</div>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+</div>

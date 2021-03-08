@@ -1,0 +1,43 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+
+global-scripts:
+  js:
+    js/main.js: {}
+  dependencies:
+    - core/jquery
+
+
+fullCalendar:
+  js:
+    https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js:
+      { type: external, minified: true }
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css:
+        { type: external, minified: true }
+
+
+Chart.js:
+  header: true
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js:
+      {type: external,  minified: true }
+
+
+chat:
+  js:
+    libraries/chat.js: {}
+
+ajaxDownloader:
+  js:
+    libraries/ajaxdownloader.js: {}
+
+
+fonts: 
+  css: 
+    theme:
+      '//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap': { type: external, minified: true }
+      

@@ -1,0 +1,40 @@
+#block-footer {
+  .footer {
+    &-left {
+      p,
+      a {
+        color: white;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        span {
+          color: #d7a94b;
+        }
+      }
+      a {
+        text-decoration: underline !important;
+      }
+    }
+
+    &-right {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .row {
+        width: 100%;
+      }
+    }
+
+    &-bottom {
+      a,
+      p {
+        font-family: Open Sans;
+        color: white;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+      justify-content: space-between;
+      background-color: #6c529d;
+    }
+  }
+}

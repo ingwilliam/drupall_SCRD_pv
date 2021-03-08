@@ -1,0 +1,7 @@
+#block-views-block-promoted-events {
+  .container-promoted-events-global {
+    @include media-breakpoint-down(md) {
+      background-color: $color-dark-500;
+    }
+  }
+}

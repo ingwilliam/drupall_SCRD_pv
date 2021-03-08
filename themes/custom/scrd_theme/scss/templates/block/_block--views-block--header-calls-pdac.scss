@@ -1,0 +1,83 @@
+#block-views-block-header-calls-pdac {
+  .content {
+    background-color: #33216d;
+
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .animated-image img {
+      width: 28px;
+      height: 38px;
+      position: inherit;
+    }
+
+    &-breadcrumb {
+      a {
+        color: white;
+      }
+
+      a:first-child {
+        font-weight: 700;
+      }
+
+      span:last-child {
+        font-weight: normal;
+      }
+    }
+
+    .container-elements {
+      max-width: 933px;
+    }
+
+    .title {
+      color: #ffcc33;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 30px !important;
+      }
+    }
+
+    .body {
+      color: $color-primary-100;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .files {
+      span {
+        display: block;
+        margin-bottom: 15px;
+        background-image: none;
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 18px;
+        }
+
+        &::before {
+          content: "";
+          display: inline-block;
+          width: 14px;
+          height: 20px;
+          margin-right: 8px;
+          margin-bottom: -2px;
+          background: url("../images/pdf-white.png") center/contain no-repeat;
+        }
+
+        a {
+          color: $color-primary-100;
+          font-weight: 600;
+          font-size: 18px;
+          text-decoration: underline !important;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 14px !important;
+          }
+        }
+      }
+    }
+  }
+}

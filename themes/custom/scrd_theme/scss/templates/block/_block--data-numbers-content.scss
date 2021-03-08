@@ -1,0 +1,22 @@
+#block-data-numbers-content {
+  .row.mb-6:not(:first-of-type) {
+    border-top: 1px solid $color-dark-400;
+    padding-top: 32px;
+  }
+}
+
+.down-arrow {
+  background: url("../images/dropdown-arrow.png") no-repeat right 0.75rem
+    center/10px 7px !important;
+
+  &[aria-expanded="true"] {
+    background: url("../images/dropup-arrow.png") no-repeat right 0.75rem
+      center/10px 7px !important;
+  }
+}
+
+#entities-tabs {
+  li {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Partial para el componente evento en modo previsualizacion
+ *
+ */
+ #}
+
+<div{{ content_attributes.addClass('node__content component-event bg-white') }}>
+	<div class="row no-gutters">
+		<div class="component-event__image position-relative">
+			{{ content.field_image }}
+			<span class="component-event__tag">
+				{{ content.field_event_type[0]["#markup"] }}
+			</span>
+		</div>
+		<div class="col-12 col-lg px-3 pt-4">
+			<div class="d-flex flex-column justify-content-between h-100">
+				<p class="component-event__title">
+					<a href="{{ url }}" class="font-weight-semibold f-18 text-primary-700 lh-24 underline" rel="bookmark">{{ node.title.value }}</a>
+				</p>
+				<div class="mb-4">
+					<span class="d-flex location-icon f-14 text-dark-800">
+						{{ content.field_locations.0 }}
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row no-gutters">
+		<div class="col-12 col-lg component-event__dateBox" style="border-right: 1px solid #6E7A8A">
+			<div class="bg-dark-200">
+				<p class="bg-dark-300 text-primary-800 f-14 text-lg-center mb-0 ml-2 ml-lg-0">Inicia</p>
+				<div class="py-2 px-2 d-flex align-items-center" style="justify-content: space-between">
+					<span class="f-18 calendar-icon--big font-weight-bold text-primary-800">
+						{{ node.field_begin_date.value|date("U")|format_date('short_complete_date') }}
+					</span>
+					<span class="f-14">
+						{{ node.field_begin_date.value|date("U")|format_date('hora_simple') }}
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="bg-dark-200">
+				<p class="bg-dark-300 text-primary-800 f-14 text-lg-center mb-0 ml-2 ml-lg-0">Finaliza</p>
+				<div class="py-2 px-2 d-flex align-items-center" style="justify-content: space-between">
+					<span class="f-18 calendar-icon--big font-weight-bold text-primary-800">
+						{{ node.field_ending_date.value|date("U")|format_date('short_complete_date') }}
+					</span>
+					<span class="f-14">
+						{{ node.field_ending_date.value|date("U")|format_date('hora_simple') }}
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

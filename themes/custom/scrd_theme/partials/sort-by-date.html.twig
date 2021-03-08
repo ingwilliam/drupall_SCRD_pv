@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col">
+    <div class="d-flex flex-wrap align-items-center">
+      <span class="text-dark-700 f-14 mr-3">Ordenar por: </span>
+      {# ?sort_by=field_begin_date_value&sort_order=ASC #}
+      {# DESC -> mas recientes primero #}
+      {# ASC -> mas antiguas primero #}
+      <select class="custom-select select--gray mr-sm-2 f-14 text-dark-700 w-auto" id="Date--sort-by-date">
+        <option value="0">Fecha</option>
+        <option value="DESC" {{ queryParams.sort_order == "DESC" ? attributes.setAttribute('selected', '') : '' }}>Más recientes</option>
+        <option value="ASC" {{ queryParams.sort_order == "ASC" ? attributes.setAttribute('selected', '') : '' }}>Más antiguas</option>
+      </select>
+    </div>
+  </div>
+</div>

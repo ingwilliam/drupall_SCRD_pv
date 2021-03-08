@@ -1,0 +1,83 @@
+{#
+/**
+ * Tab fechas importantes
+ *
+ * - title: title of the block
+ * - data:  Response of the request
+ *   - calls: Array with the options
+ */   
+#}
+
+<div 
+	class="tab-pane fade" 
+	id="call-detail-menu-dates" 
+	role="tabpanel" 
+	aria-labelledby="call-detail-menu-dates-tab"
+>
+	<p class="text-primary-600 font-weight-bold text-center title-responsive-48-36--sm">Fechas importantes</p>
+
+	{% set break = false %}
+	{% for outter in response.cronograma if not break%}
+		
+		{% if outter.eventos == null %}
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<colgroup>
+						<col class="w-40">
+						<col class="w-20">
+						<col class="w-40">
+					</colgroup>
+
+					<thead class="thead">
+						<tr>
+							<th scope="col">Evento</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Descripción</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in response.cronograma %}
+							<tr>
+								<td>{{ item.tipo_evento|raw }}</td>
+								<td class="font-weight-semibold">{{ item.fecha }}</td>
+								<td>{{ item.descripcion|raw }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% set break = true %}
+		
+		{% else %}
+			<p class="text-dark-900"><span class="font-weight-bold">Categoria: </span>  {{ outter.categoria|raw }}</p>
+
+			<div class="table-responsive mb-4">
+				<table class="table table-bordered">
+					<colgroup>
+						<col class="w-40">
+						<col class="w-20">
+						<col class="w-40">
+					</colgroup>
+
+					<thead class="thead">
+						<tr>
+							<th scope="col">Evento</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Descripción</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in outter.eventos %}
+							<tr>
+								<td>{{ item.tipo_evento|raw }}</td>
+								<td class="font-weight-semibold">{{ item.fecha }}</td>
+								<td>{{ item.descripcion|raw }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+			
+	{% endfor %}
+</div>

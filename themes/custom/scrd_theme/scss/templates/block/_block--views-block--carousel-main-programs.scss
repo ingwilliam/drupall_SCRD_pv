@@ -1,0 +1,109 @@
+#block-views-block-carousel-main-programs {
+  .header-text {
+    max-width: 600px;
+  }
+
+  #views-bootstrap-tab-views-bootstrap-carousel-main-programs-block-1 {
+    .nav.nav-tabs {
+      max-width: 50%;
+      display: flex;
+      justify-content: center;
+      background-color: $color-dark-300;
+      border: none;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding: 0 20px;
+      justify-content: flex-start;
+
+      @include media-breakpoint-down(md) {
+        max-width: 100%;
+      }
+
+      li {
+        display: flex;
+        margin: 0 8px;
+        border-radius: 5px 5px 0 0;
+        @include media-breakpoint-down(xs) {
+          width: 45%;
+        }
+
+        a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 260px;
+          height: 100px;
+          padding: 15px;
+          color: $color-dark-800;
+          font-weight: 600;
+          background-color: $color-dark-500;
+
+          @include media-breakpoint-down(lg) {
+            width: 230px;
+            text-align: center;
+          }
+
+          @include media-breakpoint-down(xs) {
+            width: 100%;
+          }
+
+          &:hover {
+            text-decoration: underline !important;
+          }
+        }
+
+        a.active {
+          background-color: white;
+
+          &:hover {
+            text-decoration: none !important;
+          }
+        }
+      }
+    }
+  }
+
+  .programs-carousel__content {
+    max-width: 570px;
+    margin: auto;
+
+    .programs-carousel__check::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+      margin-bottom: -3px;
+      background: url("../images/check-circle.png");
+    }
+  }
+
+  .programs-carousel__image {
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+      object-position: left;
+    }
+  }
+
+  .margin-negative {
+    margin-top: -208px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .programs-carousel__title {
+      font-size: 30px !important;
+      line-height: 38px !important;
+    }
+
+    .column-container {
+      width: 280px;
+      margin: auto;
+    }
+
+    .participation {
+      font-size: 14px !important;
+    }
+  }
+}

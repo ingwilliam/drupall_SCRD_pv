@@ -1,0 +1,49 @@
+.node-full-event {
+  .image-container {
+    .field--type-image {
+      height: 100%;
+
+      img {
+        width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .content-container {
+    max-width: 550px;
+
+    .breadcrumb-header {
+      a:first-child {
+        font-weight: 700;
+        color: black;
+      }
+    }
+
+    .title {
+      min-height: 140px;
+    }
+
+    .tag {
+      padding: 0 26px;
+      background-color: #e1faeb;
+      border-radius: 5px;
+      color: #197341;
+    }
+
+    .date-box {
+      width: 190px;
+    }
+  }
+
+  .line-spacer {
+    border: 1px solid #929fb1;
+  }
+
+  .node--event--image-header {
+    @include media-breakpoint-down(sm) {
+      height: 170px;
+    }
+  }
+}

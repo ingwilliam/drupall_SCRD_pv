@@ -1,0 +1,102 @@
+{#
+/**
+ * @file
+ * Sobreescritura del BLOQUE "Calendario"
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+    'py-7',
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div class="container-extra-large close-calls-calendar px-3 p-md-0">
+    <div class="pb-0  pb-md-7 close-calls-calendar__container">
+      <div class="row no-gutters">
+        <div class="col-12">
+          {{ title_prefix }}
+          {% if label %}
+            <p{{ title_attributes }} class="title-responsive-48-36--sm section-title">{{ label }}</p>
+          {% endif %}
+          {{ title_suffix }}
+        </div>   
+        <div class="col-12 col-md-7 mt-3">
+          {# {% block content %}
+              {{ content }}
+          {% endblock %} #}
+          <div id="calendarDiv"></div>
+          <div class="row no-gutters pt-5">
+            <div class="row no-gutters pr-5">
+              <div class="mr-3" style="background: #FFCC33; width: 36px; height: 26px;"></div> <p class="text-dark-900">Hoy</p>
+            </div>
+            <div class="row no-gutters">
+              <div class="mr-3" style="background: #FF5E5A; width: 36px; height: 26px;"></div> <p class="text-dark-900">Próximos vencimientos</p>
+            </div>
+            
+          </div>   
+        </div>
+        <div class="col-12 col-md-5 mt-5 mt-md-7 p-0 pl-md-4 justify-content-center">
+          <div class="bg-comp-100">
+            <div class="p-3 bg-comp-800">
+              <strong class="text-light">Convocatorias por cerrar</strong>
+            </div>
+            <div class="py-4 px-3" id="callsToClose">
+              <p class="f-24 text-comp-800 font-weight-bold" id="calendarDayText"></p>
+              <p class="text-primary-800 f-16 d-none" id="noResultsCloseCalls">No hay convocatorias que <strong>cierren</strong> este día</p>
+            </div>
+          </div>
+          <p class="f-16 text-dark-900 mt-4 text-align-center">Busca la convocatoria en SICON y envía tu propuesta</p>
+          <p class="text-align-center"><a class="secondary-button m-auto" href="https://sicon.scrd.gov.co/admin_SCRD_pv/index.html" target="_blank">Iniciar sesión</a></p>
+        </div>
+      </div>
+    </div> 
+    <div class="row no-gutters pt-6">
+      <div class="col-12 col-md-7">
+        <p class="text-primary-700 f-16"><strong>Enlaces de interés</strong></p>
+        <div class="row">
+          <div class="col-12 col-md-6"><a class="calendar-icon--5 bg-white text-primary-700 mb-3 px-3 py-2 d-flex align-items-center" href="/convocatorias" style="border-radius: 5px">Ver convocatorias</a></div>
+          <div class="col-12 col-md-6"><a class="calendar-icon--3 bg-white text-primary-700 mb-3 px-3 py-2 d-flex align-items-center" href="https://www.culturarecreacionydeporte.gov.co/convocatorias/historicos" style="border-radius: 5px">Historial</a></div>
+          <div class="col-12 col-md-6"><a class="data-icon bg-white text-primary-700 mb-3 px-3 py-2 d-flex align-items-center" href="/datos-cifras" style="border-radius: 5px">Cifras y datos</a></div>
+        </div> 
+      </div>
+      <div class="col-12 col-md-5 pl-md-4">
+        <a href="/noticias">
+          <div class="calendar-news-button mb-1 justify-content-center align-items-center text-align-center" style="height: 110px; border-radius: 5px;">
+            <p class="f-24 font-weight-bold text-light" style="line-height: 110px;" >Noticias</p>
+          </div>
+        </a>
+        <a href="/eventos">
+          <div class="calendar-events-button justify-content-center align-items-center text-align-center" style="height: 110px; border-radius: 5px;">
+            <p class="f-24 font-weight-bold text-light" style="line-height: 110px;">Eventos</p>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>

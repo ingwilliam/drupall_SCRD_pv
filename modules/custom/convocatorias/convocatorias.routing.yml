@@ -1,0 +1,59 @@
+convocatorias.getPDECCalls:
+  path: "/convocatorias"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ConvocatoriasPDECController::getPDECCalls'
+    _title: "Convocatorias"
+  requirements:
+    _permission: "access content"
+
+convocatorias.getPDACCalls:
+  path: "/convocatorias/pdac"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ConvocatoriasPDACController::getPDACCalls'
+    _title: "Convocatorias"
+  requirements:
+    _permission: "access content"
+
+convocatorias.getCallById:
+  path: "/convocatorias/{id_call}"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ConvocatoriaPorIdController::getCallById'
+    _title: "Detalle de convocatoria"
+  requirements:
+    _permission: "access content"
+
+convocatorias.getCallsByDate:
+  path: "/api/getCallsByDate"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ApiFechaCierreController::index'
+    _title: "Close calls by date JSON api"
+  methods: [GET]
+  requirements:
+    _permission: "access content"
+
+convocatorias.getCallsByMonth:
+  path: "/api/getCallsByMonth"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ApiMesCierreController::index'
+    _title: "Close calls by month JSON api"
+  methods: [GET]
+  requirements:
+    _permission: "access content"
+
+convocatorias.getDocumentAlfresco:
+  path: "/api/getDocumentAlfresco"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ApiAlfrescoController::index'
+    _title: "Download document"
+  methods: [GET]
+  requirements:
+    _permission: "access content"
+
+convocatorias.getDataNumbersCharts:
+  path: "/api/getDataNumbersCharts"
+  defaults:
+    _controller: '\Drupal\convocatorias\Controller\ApiDatosCifrasController::index'
+    _title: "Download document"
+  methods: [GET]
+  requirements:
+    _permission: "access content"

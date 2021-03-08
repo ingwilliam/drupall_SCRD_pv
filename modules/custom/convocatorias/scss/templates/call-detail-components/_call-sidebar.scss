@@ -1,0 +1,26 @@
+#call-sidebar {
+  a {
+    color: $color-dark-800;
+    font-size: 14px;
+  }
+
+  a.active {
+    font-weight: 700;
+  }
+
+  .submenu {
+    &-link.active {
+      background-color: $color-dark-200;
+    }
+  }
+
+  .down-arrow {
+    background: url("../images/dropdown-arrow.png") no-repeat right 0.75rem
+      center/10px 7px !important;
+
+    &[aria-expanded="true"] {
+      background: url("../images/dropup-arrow.png") no-repeat right 0.75rem
+        center/10px 7px !important;
+    }
+  }
+}
